@@ -108,12 +108,16 @@ const Footer = () => {
         <Button
           size="lg"
           className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 hover:opacity-90 text-white font-semibold px-10 py-6 text-lg shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300 hover:scale-105"
+          onClick={() => setTrialOpen(true)}
         >
           <Phone className="w-5 h-5 mr-2" />
           Call Gretta or Get Started
         </Button>
       </div>
     </footer>
+
+      <TrialModal open={trialOpen} onOpenChange={setTrialOpen} />
+    </>
   );
 };
 
