@@ -9,8 +9,6 @@ const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-
 
 const Hero = () => {
   const [trialOpen, setTrialOpen] = useState(false);
-  const phoneNumber = '+61 1800 GRETTA';
-  const telLink = 'tel:+611800473882';
 
   return (
     <>
