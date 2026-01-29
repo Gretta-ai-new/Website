@@ -1,25 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Phone, Calendar, MessageSquare, PhoneOutgoing, Sparkles } from 'lucide-react';
+import TrialModal from './TrialModal';
+
+const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/4cpjuxon_Untitled%20design%20%283%29.jpg';
 
 const Hero = () => {
+  const [trialOpen, setTrialOpen] = useState(false);
   const phoneNumber = '+61 1800 GRETTA';
   const telLink = 'tel:+611800473882';
 
   return (
-    <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent"></div>
-      <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20">
-        <div className="text-center max-w-5xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <div className="gretta-logo-large animate-float">
-              <div className="logo-gradient-large"></div>
+    <>
+      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20">
+          <div className="text-center max-w-5xl mx-auto">
+            <div className="flex justify-center mb-8">
+              <img 
+                src={LOGO_URL} 
+                alt="Gretta AI" 
+                className="h-32 w-32 object-contain animate-float"
+              />
             </div>
-          </div>
 
           <Badge className="mb-6 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 border border-cyan-400/30 text-cyan-300 hover:bg-gradient-to-r hover:from-blue-600/30 hover:via-purple-600/30 hover:to-pink-600/30">
             <Sparkles className="w-3 h-3 mr-2" />
