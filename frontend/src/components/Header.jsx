@@ -35,7 +35,7 @@ const Header = () => {
               <img 
                 src={LOGO_URL} 
                 alt="Gretta AI Logo" 
-                className="h-12 w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
             </div>
 

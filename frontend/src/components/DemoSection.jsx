@@ -1,14 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Phone, Play, Pause, Volume2 } from 'lucide-react';
 import TrialModal from './TrialModal';
+import { toast } from 'sonner';
 
 const DemoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trialOpen, setTrialOpen] = useState(false);
+  const audioRef = useRef(null);
   const phoneNumber = '+61 XXX XXX XXX';
   const telLink = 'tel:+61XXXXXXXXX';
+
+  // Demo audio URL - using a simple beep sound for demonstration
+  // In production, replace with actual Gretta AI demo audio
+  const demoAudioUrl = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTUIGWa67eueUQ4OT6bp8r9sIQU2jdXx05pBA08=';
+
+  useEffect(() => {
+    // Create audio element
+    audioRef.current = new Audio(demoAudioUrl);
+    audioRef.current.loop = false;
+    
+    // Handle audio end
+    audioRef.current.addEventListener('ended', () => {
+      setIsPlaying(false);
+    });
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const toggleAudio = () => {
+    if (!audioRef.current) {
+      toast.error('Audio not available', {
+        description: 'Demo audio is not loaded. Please try again.'
+      });
+      return;
+    }
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+      toast.info('Demo paused');
+    } else {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        toast.success('Playing demo conversation', {
+          description: 'This is a sample audio. In production, this would be an actual Gretta AI conversation recording.'
+        });
+      }).catch((error) => {
+        console.error('Audio play error:', error);
+        toast.error('Could not play audio', {
+          description: 'Please check your browser settings and try again.'
+        });
+      });
+    }
+  };
 
   return (
     <>
@@ -67,11 +118,17 @@ const DemoSection = () => {
               <CardContent>
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-6 border border-slate-200">
                   <div className="flex items-center justify-center mb-6">
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center relative shadow-xl">
-                      <Volume2 className="w-16 h-16 text-white" />
-                      <div className="absolute inset-0 rounded-full">
-                        <div className="waveform-animation"></div>
-                      </div>
+                    <div className={`w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center relative shadow-xl ${
+                      isPlaying ? 'animate-pulse' : ''
+                    }`}>
+                      <Volume2 className={`w-16 h-16 text-white ${
+                        isPlaying ? 'animate-pulse' : ''
+                      }`} />
+                      {isPlaying && (
+                        <div className="absolute inset-0 rounded-full">
+                          <div className="waveform-animation"></div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -95,7 +152,7 @@ const DemoSection = () => {
                   </div>
 
                   <Button
-                    onClick={() => setIsPlaying(!isPlaying)}
+                    onClick={toggleAudio}
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg"
                   >
                     {isPlaying ? (
@@ -113,7 +170,7 @@ const DemoSection = () => {
                 </div>
 
                 <p className="text-sm text-slate-500 text-center">
-                  Actual conversation recorded with client permission
+                  Sample audio demonstration - In production, this would feature actual Gretta AI conversation
                 </p>
               </CardContent>
             </Card>
