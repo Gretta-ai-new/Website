@@ -65,14 +65,14 @@ const Features = () => {
             return (
               <Card
                 key={index}
-                className=\"feature-card bg-white border-2 border-slate-200 hover:border-purple-300 transition-all duration-300 hover:scale-105 hover:shadow-2xl group\"
+                className="feature-card bg-white border-2 border-slate-200 hover:border-purple-300 transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
               >
                 <CardHeader>
                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <Icon className=\"w-7 h-7 text-white\" />
+                    <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <CardTitle className=\"text-slate-900 text-xl mb-2\">{feature.title}</CardTitle>
-                  <CardDescription className=\"text-slate-600 text-base leading-relaxed\">
+                  <CardTitle className="text-slate-900 text-xl mb-2">{feature.title}</CardTitle>
+                  <CardDescription className="text-slate-600 text-base leading-relaxed">
                     {feature.description}
                   </CardDescription>
                 </CardHeader>
