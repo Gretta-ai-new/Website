@@ -115,7 +115,8 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200 text-slate-900">
                 <SelectItem value="SMS Only">SMS Only - $299/month</SelectItem>
-                <SelectItem value="Inbound + SMS">Inbound + SMS - $997/month</SelectItem>
+                <SelectItem value="Inbound + SMS">Inbound + SMS - $995/month</SelectItem>
+                <SelectItem value="Outbound + SMS">Outbound + SMS - $1,195/month</SelectItem>
               </SelectContent>
             </Select>
           </div>
