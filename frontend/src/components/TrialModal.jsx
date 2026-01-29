@@ -28,19 +28,12 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
       const response = await axios.post(`${BACKEND_URL}/api/trial-signup`, formData);
       
       if (response.data.success) {
-        toast({
-          title: "Success!",
-          description: response.data.message,
-        });
+        toast.success(response.data.message);
         setFormData({ name: '', email: '', phone: '', company: '', plan_type: '' });
         onOpenChange(false);
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: error.response?.data?.detail || "Failed to sign up for trial",
-        variant: "destructive"
-      });
+      toast.error(error.response?.data?.detail || "Failed to sign up for trial");
     } finally {
       setLoading(false);
     }
