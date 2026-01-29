@@ -347,13 +347,10 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus:
-    - "Trial Signup Modal Form - E2E test with backend"
-    - "Contact Modal Form - E2E test with backend"
-    - "Toast Notifications - verify success and error states"
+  current_focus: []
   stuck_tasks: []
-  test_all: false
-  test_priority: "high_first"
+  test_all: true
+  test_priority: "completed"
 
 agent_communication:
   - agent: "main"
