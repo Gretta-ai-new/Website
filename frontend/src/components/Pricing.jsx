@@ -162,6 +162,10 @@ const Pricing = () => {
                         ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:opacity-90 shadow-lg shadow-purple-500/50'
                         : 'bg-slate-800 hover:bg-slate-700 text-white'
                     } font-semibold py-6 transition-all duration-300`}
+                    onClick={() => {
+                      setSelectedPlan(plan.name);
+                      setTrialOpen(true);
+                    }}
                   >
                     Start 14-Day Free Trial
                   </Button>
@@ -177,6 +181,8 @@ const Pricing = () => {
           </p>
         </div>
       </div>
+
+      <TrialModal open={trialOpen} onOpenChange={setTrialOpen} defaultPlan={selectedPlan} />
     </section>
   );
 };
