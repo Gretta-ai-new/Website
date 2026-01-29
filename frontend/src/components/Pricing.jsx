@@ -32,8 +32,8 @@ const Pricing = () => {
     {
       name: 'Inbound + SMS',
       icon: Crown,
-      price: 997,
-      annualPrice: 847,
+      price: 995,
+      annualPrice: 846,
       description: 'Perfect for high-volume inbound & texting',
       features: [
         'Everything in SMS Only',
@@ -50,20 +50,40 @@ const Pricing = () => {
       isCustom: false
     },
     {
-      name: 'Enterprise',
-      icon: Users,
-      price: null,
-      annualPrice: null,
-      description: 'Custom solution for your business',
+      name: 'Outbound + SMS',
+      icon: PhoneOutgoing,
+      price: 1195,
+      annualPrice: 1016,
+      description: 'Scale outreach with powerful calling',
       features: [
-        'Everything in Inbound + SMS',
+        'Everything in SMS Only',
         'Unlimited outbound calls',
         'Smart dialing sequences',
         'Cold & warm outreach campaigns',
         'Time zone intelligence',
+        'Priority integrations',
+        'Advanced analytics',
+        'Email & chat support'
+      ],
+      color: 'from-blue-600 to-purple-600',
+      popular: false,
+      isCustom: false
+    },
+    {
+      name: 'Enterprise',
+      icon: Users,
+      price: null,
+      annualPrice: null,
+      description: 'Complete solution: Inbound + Outbound + SMS',
+      features: [
+        'Everything in all plans combined',
+        'Unlimited inbound & outbound calls',
+        'Full SMS automation suite',
         'White-glove onboarding',
         'Dedicated account manager',
-        'Custom API access'
+        'Custom API access',
+        'Custom voice training',
+        'Priority 24/7 support'
       ],
       color: 'from-pink-500 to-purple-600',
       popular: false,
