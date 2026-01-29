@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Phone, Menu, X } from 'lucide-react';
+import { Phone, Menu, X, Calendar } from 'lucide-react';
 import ContactModal from './ContactModal';
 import TrialModal from './TrialModal';
-
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/5jdvd23u_Untitled%20design%20%2814%29.png';
+import BookingModal from './BookingModal';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [trialOpen, setTrialOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,12 +31,15 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-3">
-              <img 
-                src={LOGO_URL} 
-                alt="Gretta AI Logo" 
-                className="h-16 w-auto object-contain"
-              />
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                className="border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white font-semibold"
+                onClick={() => setBookingOpen(true)}
+              >
+                <Calendar className="w-4 h-4 mr-2" />
+                Book an Appointment
+              </Button>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
@@ -82,6 +85,18 @@ const Header = () => {
 
           {isMobileMenuOpen && (
             <div className="md:hidden pb-6 space-y-4">
+              <Button
+                variant="outline"
+                className="border-2 border-purple-500 text-purple-600 w-full font-semibold"
+                onClick={() => {
+                  setBookingOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <Calendar className="w-4 h-4 mr-2" />
+                Book an Appointment
+              </Button>
+              
               <a href="#features" className="block text-slate-700 hover:text-purple-600 transition-colors font-medium">Features</a>
               <a href="#pricing" className="block text-slate-700 hover:text-purple-600 transition-colors font-medium">Pricing</a>
               <a href="#demo" className="block text-slate-700 hover:text-purple-600 transition-colors font-medium">Try Demo</a>
@@ -96,7 +111,7 @@ const Header = () => {
               >
                 Contact
               </a>
-              <div className="flex flex-col space-y-3 pt-4">
+              <div className="flex flex-col space-y-3 pt-4 border-t border-slate-200">
                 <Button 
                   variant="outline" 
                   className="border-2 border-blue-500 text-blue-600 w-full font-semibold"
@@ -120,6 +135,7 @@ const Header = () => {
         </div>
       </header>
       
+      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
       <ContactModal open={contactOpen} onOpenChange={setContactOpen} />
       <TrialModal open={trialOpen} onOpenChange={setTrialOpen} />
     </>
