@@ -159,6 +159,64 @@ async def get_analytics():
         raise HTTPException(status_code=500, detail="Failed to get analytics")
 
 
+# Retell AI Web Call endpoint
+@api_router.post("/retell/web-call")
+async def create_retell_web_call():
+    """Create a Retell web call for real-time voice conversation"""
+    try:
+        if not retell:
+            raise HTTPException(status_code=500, detail="Retell AI not configured")
+        
+        # Create or get agent - using simple free-flow conversation
+        # The agent will introduce itself and ask how it can help
+        agent_response = retell.agent.create(
+            llm_websocket_url="wss://api.retellai.com/v1/llm-websocket",
+            voice_id="11labs-Adrian",  # Natural male voice
+            agent_name="Gretta AI Assistant",
+            language="en-US",
+            response_engine={
+                "type": "retell-llm",
+                "llm_id": "retell-llm-2",  # Free-tier LLM
+                "begin_message": "Hello! I'm calling from Gretta AI. How can I help you today?",
+                "general_prompt": "You are a friendly AI assistant from Gretta AI, a voice automation company. Be helpful, conversational, and answer questions about AI voice agents, appointment booking, SMS automation, and call handling. Keep responses natural and concise.",
+                "general_tools": [],
+                "states": [],
+                "starting_state": "default"
+            },
+            ambient_sound="office",
+            ambient_sound_volume=0.1,
+            backchannel_frequency=0.8,
+            backchannel_words=["yeah", "uh-huh", "got it"],
+            boosted_keywords=["Gretta", "AI", "voice agent", "appointment", "booking"],
+            enable_backchannel=True,
+            interruption_sensitivity=0.5,
+            normalize_for_speech=True,
+            opt_out_sensitive_data_storage=False,
+            reminder_trigger_ms=10000,
+            reminder_max_count=2,
+            responsiveness=1.0,
+            enable_transcription_formatting=True
+        )
+        
+        agent_id = agent_response.agent_id
+        
+        # Create web call
+        web_call_response = retell.call.create_web_call(
+            agent_id=agent_id,
+            metadata={"source": "landing_page"}
+        )
+        
+        return {
+            "access_token": web_call_response.access_token,
+            "call_id": web_call_response.call_id,
+            "agent_id": agent_id
+        }
+        
+    except Exception as e:
+        logging.error(f"Error creating Retell web call: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create web call: {str(e)}")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
