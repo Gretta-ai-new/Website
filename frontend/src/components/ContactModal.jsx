@@ -28,19 +28,12 @@ const ContactModal = ({ open, onOpenChange }) => {
       const response = await axios.post(`${BACKEND_URL}/api/contact`, formData);
       
       if (response.data.success) {
-        toast({
-          title: "Success!",
-          description: response.data.message,
-        });
+        toast.success(response.data.message);
         setFormData({ name: '', email: '', phone: '', company: '', message: '' });
         onOpenChange(false);
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: error.response?.data?.detail || "Failed to submit contact form",
-        variant: "destructive"
-      });
+      toast.error(error.response?.data?.detail || "Failed to submit contact form");
     } finally {
       setLoading(false);
     }
