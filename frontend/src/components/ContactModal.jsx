@@ -19,7 +19,6 @@ const ContactModal = ({ open, onOpenChange }) => {
     company: '',
     message: ''
   });
-  const { toast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
