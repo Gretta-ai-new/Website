@@ -49,6 +49,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 text-lg shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300 hover:scale-105"
+                onClick={() => setTrialOpen(true)}
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call Gretta Now – Try It Free
@@ -58,6 +59,9 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-950 font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+                onClick={() => {
+                  document.querySelector('#demo').scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 Watch Demo
               </Button>
