@@ -1,15 +1,17 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
-import uuid
-from datetime import datetime, timezone
-
+from models import (
+    Contact, ContactCreate,
+    NewsletterSubscriber, NewsletterCreate,
+    DemoRequest, DemoRequestCreate,
+    TrialSignup, TrialSignupCreate,
+    Analytics
+)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -26,45 +28,89 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
-
-# Add your routes to the router instead of directly to app
+# Health check endpoint
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Gretta AI API is running"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+# Contact Form Submission
+@api_router.post("/contact", response_model=dict)
+async def create_contact(contact_data: ContactCreate):
+    try:
+        contact = Contact(**contact_data.dict())
+        await db.contacts.insert_one(contact.dict())
+        return {"success": True, "message": "Contact request submitted successfully"}
+    except Exception as e:
+        logging.error(f"Error creating contact: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit contact request")
+
+
+# Newsletter Signup
+@api_router.post("/newsletter", response_model=dict)
+async def subscribe_newsletter(newsletter_data: NewsletterCreate):
+    try:
+        # Check if email already exists
+        existing = await db.newsletter_subscribers.find_one({"email": newsletter_data.email})
+        if existing:
+            return {"success": True, "message": "You are already subscribed to our newsletter"}
+        
+        subscriber = NewsletterSubscriber(**newsletter_data.dict())
+        await db.newsletter_subscribers.insert_one(subscriber.dict())
+        return {"success": True, "message": "Successfully subscribed to newsletter"}
+    except Exception as e:
+        logging.error(f"Error subscribing to newsletter: {e}")
+        raise HTTPException(status_code=500, detail="Failed to subscribe to newsletter")
+
+
+# Demo Request
+@api_router.post("/demo-request", response_model=dict)
+async def create_demo_request(demo_data: DemoRequestCreate):
+    try:
+        demo_request = DemoRequest(**demo_data.dict())
+        await db.demo_requests.insert_one(demo_request.dict())
+        return {"success": True, "message": "Demo request submitted successfully"}
+    except Exception as e:
+        logging.error(f"Error creating demo request: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit demo request")
+
+
+# Free Trial Signup
+@api_router.post("/trial-signup", response_model=dict)
+async def create_trial_signup(trial_data: TrialSignupCreate):
+    try:
+        # Check if email already exists
+        existing = await db.trial_signups.find_one({"email": trial_data.email})
+        if existing:
+            return {"success": True, "message": "You have already signed up for a free trial"}
+        
+        trial_signup = TrialSignup(**trial_data.dict())
+        await db.trial_signups.insert_one(trial_signup.dict())
+        return {"success": True, "message": "Free trial signup successful! We'll contact you shortly."}
+    except Exception as e:
+        logging.error(f"Error creating trial signup: {e}")
+        raise HTTPException(status_code=500, detail="Failed to sign up for trial")
+
+
+# Get Analytics
+@api_router.get("/analytics", response_model=Analytics)
+async def get_analytics():
+    try:
+        total_contacts = await db.contacts.count_documents({})
+        total_demo_requests = await db.demo_requests.count_documents({})
+        total_trial_signups = await db.trial_signups.count_documents({})
+        total_newsletter_subscribers = await db.newsletter_subscribers.count_documents({})
+        
+        return Analytics(
+            total_contacts=total_contacts,
+            total_demo_requests=total_demo_requests,
+            total_trial_signups=total_trial_signups,
+            total_newsletter_subscribers=total_newsletter_subscribers
+        )
+    except Exception as e:
+        logging.error(f"Error getting analytics: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get analytics")
+
 
 # Include the router in the main app
 app.include_router(api_router)
@@ -72,7 +118,7 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -83,6 +129,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
