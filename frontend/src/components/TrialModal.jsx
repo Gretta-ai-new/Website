@@ -57,27 +57,27 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-900 border-slate-700 text-white">
+      <DialogContent className="bg-white border-slate-200 text-slate-900">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Start Your 14-Day Free Trial</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogTitle className="text-2xl text-slate-900">Start Your 14-Day Free Trial</DialogTitle>
+          <DialogDescription className="text-slate-600">
             No credit card required. Get started in minutes.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="trial-name">Name *</Label>
+            <Label htmlFor="trial-name" className="text-slate-700">Name *</Label>
             <Input
               id="trial-name"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="trial-email">Email *</Label>
+            <Label htmlFor="trial-email" className="text-slate-700">Email *</Label>
             <Input
               id="trial-email"
               name="email"
@@ -85,11 +85,11 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="trial-phone">Phone *</Label>
+            <Label htmlFor="trial-phone" className="text-slate-700">Phone *</Label>
             <Input
               id="trial-phone"
               name="phone"
@@ -97,26 +97,26 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="trial-company">Company</Label>
+            <Label htmlFor="trial-company" className="text-slate-700">Company</Label>
             <Input
               id="trial-company"
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="trial-plan">Select Plan *</Label>
+            <Label htmlFor="trial-plan" className="text-slate-700">Select Plan *</Label>
             <Select value={formData.plan_type} onValueChange={handlePlanChange} required>
-              <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
+              <SelectTrigger className="bg-white border-slate-300 text-slate-900">
                 <SelectValue placeholder="Choose a plan" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700 text-white">
+              <SelectContent className="bg-white border-slate-200 text-slate-900">
                 <SelectItem value="SMS Only">SMS Only - $299/month</SelectItem>
                 <SelectItem value="Inbound + SMS">Inbound + SMS - $997/month</SelectItem>
                 <SelectItem value="Outbound Full Suite">Outbound Full Suite - $1,299/month</SelectItem>
@@ -126,7 +126,7 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90"
+            className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg"
           >
             {loading ? (
               <>

@@ -53,27 +53,27 @@ const ContactModal = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-900 border-slate-700 text-white">
+      <DialogContent className="bg-white border-slate-200 text-slate-900">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Get in Touch</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogTitle className="text-2xl text-slate-900">Get in Touch</DialogTitle>
+          <DialogDescription className="text-slate-600">
             Fill out the form below and we'll get back to you shortly.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="name">Name *</Label>
+            <Label htmlFor="name" className="text-slate-700">Name *</Label>
             <Input
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="email">Email *</Label>
+            <Label htmlFor="email" className="text-slate-700">Email *</Label>
             <Input
               id="email"
               name="email"
@@ -81,32 +81,32 @@ const ContactModal = ({ open, onOpenChange }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="phone">Phone</Label>
+            <Label htmlFor="phone" className="text-slate-700">Phone</Label>
             <Input
               id="phone"
               name="phone"
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="company">Company</Label>
+            <Label htmlFor="company" className="text-slate-700">Company</Label>
             <Input
               id="company"
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <div>
-            <Label htmlFor="message">Message *</Label>
+            <Label htmlFor="message" className="text-slate-700">Message *</Label>
             <Textarea
               id="message"
               name="message"
@@ -114,13 +114,13 @@ const ContactModal = ({ open, onOpenChange }) => {
               onChange={handleChange}
               required
               rows={4}
-              className="bg-slate-800 border-slate-700 text-white"
+              className="bg-white border-slate-300 text-slate-900"
             />
           </div>
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90"
+            className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg"
           >
             {loading ? (
               <>
