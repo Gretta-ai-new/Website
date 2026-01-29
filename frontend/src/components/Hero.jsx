@@ -48,15 +48,6 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  onClick={() => setTrialOpen(true)}
-                >
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Gretta Now – Try It Free
-                </Button>
-                
-                <Button
-                  size="lg"
                   variant="outline"
                   className="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-semibold px-8 py-6 text-base transition-all duration-300 hover:scale-105 shadow-lg"
                   onClick={() => {
@@ -65,15 +56,20 @@ const Hero = () => {
                 >
                   Watch Demo
                 </Button>
+                
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                  onClick={() => setTrialOpen(true)}
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Start Free Trial
+                </Button>
               </div>
 
-              <div className="phone-number-display bg-white border-2 border-blue-300 rounded-2xl px-8 py-6 hover:border-purple-400 transition-all duration-300 hover:scale-105 cursor-pointer group shadow-xl hover:shadow-2xl">
-                <a href={telLink} className="block">
-                  <p className="text-sm text-slate-600 mb-1 group-hover:text-purple-600 transition-colors font-medium">Click to call and speak with Gretta live</p>
-                  <p className="text-3xl sm:text-4xl font-bold text-slate-900 group-hover:text-gradient group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                    {phoneNumber}
-                  </p>
-                </a>
+              {/* Push to Speak Component */}
+              <div className="w-full max-w-md">
+                <PushToSpeak />
               </div>
             </div>
 
