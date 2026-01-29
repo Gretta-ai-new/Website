@@ -107,28 +107,29 @@ const PushToSpeak = () => {
     setError(null);
 
     try {
-      // Request microphone permission
+      // Request microphone permission first
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
         video: false,
       });
       stream.getTracks().forEach((track) => track.stop());
 
-      // For demo mode - showing what would happen
-      // In production, this would call your backend endpoint
-      toast.info('Demo Mode', {
-        description: 'This is a demo. Connect to backend API for live conversation.',
-        duration: 3000
+      // Call backend to create web call
+      const response = await axios.post(`${BACKEND_URL}/api/retell/web-call`);
+      const { access_token } = response.data;
+
+      if (!access_token) {
+        throw new Error('No access token received');
+      }
+
+      // Start the call with Retell
+      await retellClientRef.current.startCall({
+        accessToken: access_token,
       });
 
-      // Simulate connection delay
-      setTimeout(() => {
-        toast.success('Demo Active!', {
-          description: 'In production, you would now be speaking with Gretta AI via Retell.'
-        });
-        setIsCallActive(true);
-        setIsConnecting(false);
-      }, 2000);
+      toast.success('Connected!', {
+        description: 'You can now speak with Gretta AI'
+      });
 
     } catch (err) {
       console.error('Error starting call:', err);
@@ -138,10 +139,15 @@ const PushToSpeak = () => {
         toast.error('Microphone Access Required', {
           description: 'Please allow microphone access to speak with Gretta'
         });
+      } else if (err.response?.status === 500) {
+        setError('Backend error');
+        toast.error('Service Error', {
+          description: 'Unable to connect to voice service. Please try again later.'
+        });
       } else {
         setError('Failed to start call');
         toast.error('Connection Failed', {
-          description: 'Unable to start voice chat. Please try again.'
+          description: err.message || 'Unable to start voice chat. Please try again.'
         });
       }
       
