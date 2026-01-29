@@ -211,11 +211,14 @@ frontend:
     file: "Pricing.jsx, TrialModal.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "3 pricing tiers with annual/monthly toggle. Trial modal opens when clicking 'Start Free Trial' buttons."
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive E2E testing completed successfully. Pricing section displays correctly with 3 pricing tiers (SMS Only, Inbound + SMS, Outbound Full Suite). Monthly/annual toggle works perfectly - prices change correctly when toggled (showing 15% discount for annual billing). All 'Start 14-Day Free Trial' buttons open the trial modal with correct plan pre-selection. Pricing cards have proper styling with 'Most Popular' badge on middle tier. Annual pricing shows discounted rates correctly."
 
   - task: "Trial Signup Modal Form"
     implemented: true
