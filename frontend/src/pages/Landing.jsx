@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Pricing from '../components/Pricing';
+import ROICalculator from '../components/ROICalculator';
 import DemoSection from '../components/DemoSection';
 import TrustSection from '../components/TrustSection';
 import Footer from '../components/Footer';
@@ -14,6 +15,7 @@ const Landing = () => {
       <Hero />
       <Features />
       <Pricing />
+      <ROICalculator />
       <DemoSection />
       <TrustSection />
       <Footer />
