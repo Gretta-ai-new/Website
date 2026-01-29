@@ -4,6 +4,9 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { toast } from 'sonner';
 import { Mic, MicOff, Loader2, Volume2, PhoneOff } from 'lucide-react';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const PushToSpeak = () => {
   const [isCallActive, setIsCallActive] = useState(false);
