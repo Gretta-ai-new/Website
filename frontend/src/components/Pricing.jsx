@@ -3,9 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Check, Zap, Crown, Rocket } from 'lucide-react';
+import TrialModal from './TrialModal';
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [trialOpen, setTrialOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState('');
 
   const plans = [
     {
