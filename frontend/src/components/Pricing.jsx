@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Check, Zap, Crown, Users } from 'lucide-react';
+import { Check, Zap, Crown, Users, PhoneOutgoing } from 'lucide-react';
 import TrialModal from './TrialModal';
 
 const Pricing = () => {
