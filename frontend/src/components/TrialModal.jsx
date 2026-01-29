@@ -19,7 +19,6 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
     company: '',
     plan_type: defaultPlan
   });
-  const { toast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
