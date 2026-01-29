@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Phone, Calendar, MessageSquare, PhoneOutgoing, Sparkles } from 'lucide-react';
 import TrialModal from './TrialModal';
+import PushToSpeak from './PushToSpeak';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/5jdvd23u_Untitled%20design%20%2814%29.png';
 
