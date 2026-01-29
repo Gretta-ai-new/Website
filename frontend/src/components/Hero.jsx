@@ -17,13 +17,13 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-20">
           <div className="text-center max-w-5xl mx-auto">
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-center mb-6">
               <img 
                 src={LOGO_URL} 
                 alt="Gretta AI" 
-                className="h-48 sm:h-56 md:h-64 w-auto object-contain animate-float drop-shadow-2xl"
+                className="h-40 sm:h-44 md:h-48 w-auto object-contain animate-float drop-shadow-2xl"
               />
             </div>
 
