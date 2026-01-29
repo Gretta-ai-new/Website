@@ -122,11 +122,14 @@ const DemoSection = () => {
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-10 py-6 text-lg shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300 hover:scale-105"
+            onClick={() => setTrialOpen(true)}
           >
             Start Your Free Trial Today
           </Button>
         </div>
       </div>
+
+      <TrialModal open={trialOpen} onOpenChange={setTrialOpen} />
     </section>
   );
 };
