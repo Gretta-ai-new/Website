@@ -63,16 +63,58 @@ async def subscribe_newsletter(newsletter_data: NewsletterCreate):
         raise HTTPException(status_code=500, detail="Failed to subscribe to newsletter")
 
 
-# Demo Request
+# Demo Request (also used for Booking Appointments)
 @api_router.post("/demo-request", response_model=dict)
 async def create_demo_request(demo_data: DemoRequestCreate):
     try:
         demo_request = DemoRequest(**demo_data.dict())
-        await db.demo_requests.insert_one(demo_request.dict())
-        return {"success": True, "message": "Demo request submitted successfully"}
+        result = await db.demo_requests.insert_one(demo_request.dict())
+        
+        # Return the data in a format suitable for webhooks
+        return {
+            "success": True, 
+            "message": "Demo request submitted successfully",
+            "data": {
+                "id": str(result.inserted_id),
+                "name": demo_request.name,
+                "email": demo_request.email,
+                "phone": demo_request.phone,
+                "company": demo_request.company,
+                "interested_in": demo_request.plan_type,
+                "timestamp": demo_request.created_at.isoformat()
+            }
+        }
     except Exception as e:
         logging.error(f"Error creating demo request: {e}")
         raise HTTPException(status_code=500, detail="Failed to submit demo request")
+
+
+# Webhook endpoint for external integrations (HubSpot, Zapier, etc.)
+@api_router.get("/webhook/bookings", response_model=list)
+async def get_bookings_webhook():
+    """Webhook endpoint to fetch recent booking/demo requests for integration with HubSpot/Zapier"""
+    try:
+        # Get last 100 demo requests
+        demo_requests = await db.demo_requests.find().sort("created_at", -1).limit(100).to_list(100)
+        
+        # Format for webhook consumption
+        formatted_data = []
+        for req in demo_requests:
+            formatted_data.append({
+                "id": req.get("id"),
+                "name": req.get("name"),
+                "email": req.get("email"),
+                "phone": req.get("phone"),
+                "company": req.get("company"),
+                "interested_in": req.get("plan_type"),
+                "preferred_time": req.get("preferred_time"),
+                "created_at": req.get("created_at")
+            })
+        
+        return formatted_data
+    except Exception as e:
+        logging.error(f"Error fetching bookings webhook: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch bookings")
 
 
 # Free Trial Signup
