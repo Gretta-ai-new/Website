@@ -7,8 +7,8 @@ const ROICalculator = () => {
   const [hoursPerWeek, setHoursPerWeek] = useState(35);
   const [hourlyRate, setHourlyRate] = useState(25);
 
-  // Using Inbound + SMS pricing as baseline ($997/month)
-  const aiCost = 997;
+  // Using Inbound + SMS pricing as baseline ($995/month)
+  const aiCost = 995;
 
   // Calculate current monthly cost
   const weeksPerMonth = 4.33;
