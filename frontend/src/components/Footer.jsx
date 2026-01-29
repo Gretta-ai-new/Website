@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import TrialModal from './TrialModal';
+
+const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/4cpjuxon_Untitled%20design%20%283%29.jpg';
 
 const Footer = () => {
+  const [trialOpen, setTrialOpen] = useState(false);
+
   return (
-    <footer id="contact" className="bg-slate-950 border-t border-slate-800 pt-16 pb-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="gretta-logo">
-                <div className="logo-gradient"></div>
+    <>
+      <footer id="contact" className="bg-slate-950 border-t border-slate-800 pt-16 pb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div className="md:col-span-2">
+              <div className="flex items-center space-x-3 mb-4">
+                <img 
+                  src={LOGO_URL} 
+                  alt="Gretta AI Logo" 
+                  className="h-12 w-12 object-contain"
+                />
+                <span className="text-2xl font-bold text-white">Gretta AI</span>
               </div>
-              <span className="text-2xl font-bold text-white">Gretta AI</span>
-            </div>
             <p className="text-slate-400 mb-6 max-w-md leading-relaxed">
               The AI voice agent that handles inbound calls, books appointments, manages SMS, and powers outbound campaigns — so you never miss an opportunity.
             </p>
