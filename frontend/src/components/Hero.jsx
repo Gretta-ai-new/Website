@@ -27,23 +27,23 @@ const Hero = () => {
               />
             </div>
 
-            <Badge className="mb-6 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-300 text-blue-700 hover:bg-gradient-to-r hover:from-blue-200 hover:to-purple-200 shadow-sm text-xs">
+            <Badge className="mb-5 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-300 text-blue-700 hover:bg-gradient-to-r hover:from-blue-200 hover:to-purple-200 shadow-sm text-xs">
               <Sparkles className="w-3 h-3 mr-2" />
               Powered by Advanced Voice AI
             </Badge>
 
-            <h1 className="hero-headline text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+            <h1 className="hero-headline text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-5 leading-tight">
               Meet Gretta: Your 24/7 AI Voice Agent That{' '}
               <span className="text-gradient bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Never Misses a Call
               </span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-600 mb-7 max-w-3xl mx-auto leading-relaxed">
               Handle inbound calls, book appointments instantly, manage SMS conversations, and run smart outbound campaigns — all powered by human-like AI voice.
             </p>
 
-            <div className="flex flex-col items-center space-y-6 mb-12">
+            <div className="flex flex-col items-center space-y-5 mb-10">
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button
                   size="lg"
