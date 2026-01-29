@@ -116,6 +116,9 @@ backend:
       - working: true
         agent: "main"
         comment: "POST /api/contact endpoint created and tested successfully with curl. Stores contact submissions in MongoDB."
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed successfully. All scenarios tested: valid data with all fields, required fields only, invalid email validation, missing required fields validation. API correctly stores data in MongoDB and handles all edge cases properly."
 
   - task: "Trial Signup API Endpoint"
     implemented: true
@@ -128,6 +131,9 @@ backend:
       - working: true
         agent: "main"
         comment: "POST /api/trial-signup endpoint created and tested successfully. Prevents duplicate signups by checking email."
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed successfully. All scenarios tested: valid data with all fields, duplicate email prevention, phone format handling, plan selection validation. API correctly prevents duplicate signups and stores data in MongoDB properly."
 
   - task: "Newsletter Subscription API"
     implemented: true
