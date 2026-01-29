@@ -25,7 +25,10 @@ const Footer = () => {
             <p className="text-slate-400 mb-6 max-w-md leading-relaxed">
               The AI voice agent that handles inbound calls, books appointments, manages SMS, and powers outbound campaigns — so you never miss an opportunity.
             </p>
-            <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90">
+            <Button 
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90"
+              onClick={() => setTrialOpen(true)}
+            >
               <Phone className="w-4 h-4 mr-2" />
               Start Free Trial
             </Button>
