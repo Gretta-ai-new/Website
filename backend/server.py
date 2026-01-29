@@ -167,35 +167,17 @@ async def create_retell_web_call():
         if not retell:
             raise HTTPException(status_code=500, detail="Retell AI not configured")
         
-        # Create or get agent - using simple free-flow conversation
-        # The agent will introduce itself and ask how it can help
+        # Create agent with proper SDK format
         agent_response = retell.agent.create(
-            llm_websocket_url="wss://api.retellai.com/v1/llm-websocket",
-            voice_id="11labs-Adrian",  # Natural male voice
-            agent_name="Gretta AI Assistant",
+            agent_name="Gretta AI Voice Assistant",
+            voice_id="11labs-Adrian",
             language="en-US",
             response_engine={
                 "type": "retell-llm",
-                "llm_id": "retell-llm-2",  # Free-tier LLM
+                "llm_id": "retell-llm-2",
                 "begin_message": "Hello! I'm calling from Gretta AI. How can I help you today?",
                 "general_prompt": "You are a friendly AI assistant from Gretta AI, a voice automation company. Be helpful, conversational, and answer questions about AI voice agents, appointment booking, SMS automation, and call handling. Keep responses natural and concise.",
-                "general_tools": [],
-                "states": [],
-                "starting_state": "default"
             },
-            ambient_sound="office",
-            ambient_sound_volume=0.1,
-            backchannel_frequency=0.8,
-            backchannel_words=["yeah", "uh-huh", "got it"],
-            boosted_keywords=["Gretta", "AI", "voice agent", "appointment", "booking"],
-            enable_backchannel=True,
-            interruption_sensitivity=0.5,
-            normalize_for_speech=True,
-            opt_out_sensitive_data_storage=False,
-            reminder_trigger_ms=10000,
-            reminder_max_count=2,
-            responsiveness=1.0,
-            enable_transcription_formatting=True
         )
         
         agent_id = agent_response.agent_id
@@ -203,7 +185,6 @@ async def create_retell_web_call():
         # Create web call
         web_call_response = retell.call.create_web_call(
             agent_id=agent_id,
-            metadata={"source": "landing_page"}
         )
         
         return {
