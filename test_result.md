@@ -301,11 +301,14 @@ frontend:
     file: "App.js, ContactModal.jsx, TrialModal.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Sonner toast notifications integrated for form submission feedback. Needs testing."
+      - working: true
+        agent: "testing"
+        comment: "Toast notifications now working perfectly after fixing implementation. Issue was that modals were using useToast hook while App.js was using Sonner toaster. Fixed by updating both TrialModal.jsx and ContactModal.jsx to use Sonner's toast.success() and toast.error() functions instead of the custom useToast hook. Success and error messages now display correctly at bottom-right of screen with proper styling. Tested with both trial signup and contact form submissions."
 
 metadata:
   created_by: "main_agent"
