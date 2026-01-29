@@ -38,10 +38,15 @@ const BookingModal = ({ open, onOpenChange }) => {
       
       if (response.data.success) {
         toast.success('Booking Submitted!', {
-          description: "Thank you! We'll contact you shortly to schedule your appointment."
+          description: "Thank you! Redirecting you to schedule your demo..."
         });
         setFormData({ name: '', company: '', email: '', phone: '', interested_in: '' });
         onOpenChange(false);
+        
+        // Redirect to Cal.com after 2 seconds
+        setTimeout(() => {
+          window.open('https://cal.com/gretta-ai/30min', '_blank');
+        }, 2000);
       }
     } catch (error) {
       toast.error('Submission Failed', {
