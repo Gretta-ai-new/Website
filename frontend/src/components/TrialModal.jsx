@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { useToast } from '../hooks/use-toast';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
@@ -28,12 +29,16 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
       const response = await axios.post(`${BACKEND_URL}/api/trial-signup`, formData);
       
       if (response.data.success) {
-        toast.success(response.data.message);
+        toast.success('Success!', {
+          description: response.data.message,
+        });
         setFormData({ name: '', email: '', phone: '', company: '', plan_type: '' });
         onOpenChange(false);
       }
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to sign up for trial");
+      toast.error('Error', {
+        description: error.response?.data?.detail || 'Failed to sign up for trial'
+      });
     } finally {
       setLoading(false);
     }
@@ -51,7 +56,7 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-white border-slate-200 text-slate-900">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-slate-900">Start Your 14-Day Free Trial</DialogTitle>
+          <DialogTitle className="text-2xl text-slate-900">Start Your 7-Day Free Trial</DialogTitle>
           <DialogDescription className="text-slate-600">
             No credit card required. Get started in minutes.
           </DialogDescription>
@@ -111,7 +116,6 @@ const TrialModal = ({ open, onOpenChange, defaultPlan = '' }) => {
               <SelectContent className="bg-white border-slate-200 text-slate-900">
                 <SelectItem value="SMS Only">SMS Only - $299/month</SelectItem>
                 <SelectItem value="Inbound + SMS">Inbound + SMS - $997/month</SelectItem>
-                <SelectItem value="Outbound Full Suite">Outbound Full Suite - $1,299/month</SelectItem>
               </SelectContent>
             </Select>
           </div>

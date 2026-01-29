@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Check, Zap, Crown, Rocket } from 'lucide-react';
+import { Check, Zap, Crown, Users } from 'lucide-react';
 import TrialModal from './TrialModal';
 
 const Pricing = () => {
@@ -26,7 +26,8 @@ const Pricing = () => {
         'Email support'
       ],
       color: 'from-blue-500 to-cyan-500',
-      popular: false
+      popular: false,
+      isCustom: false
     },
     {
       name: 'Inbound + SMS',
@@ -45,14 +46,15 @@ const Pricing = () => {
         'Advanced analytics'
       ],
       color: 'from-purple-500 to-pink-500',
-      popular: true
+      popular: true,
+      isCustom: false
     },
     {
-      name: 'Outbound Full Suite',
-      icon: Rocket,
-      price: 1299,
-      annualPrice: 1104,
-      description: 'Scale outreach with powerful calling',
+      name: 'Enterprise',
+      icon: Users,
+      price: null,
+      annualPrice: null,
+      description: 'Custom solution for your business',
       features: [
         'Everything in Inbound + SMS',
         'Unlimited outbound calls',
@@ -64,7 +66,9 @@ const Pricing = () => {
         'Custom API access'
       ],
       color: 'from-pink-500 to-purple-600',
-      popular: false
+      popular: false,
+      isCustom: true,
+      customLink: 'https://cal.com/gretta-ai/45min'
     }
   ];
 
@@ -114,7 +118,7 @@ const Pricing = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {plans.map((plan, index) => {
               const Icon = plan.icon;
-              const displayPrice = isAnnual ? plan.annualPrice : plan.price;
+              const displayPrice = plan.isCustom ? null : (isAnnual ? plan.annualPrice : plan.price);
               
               return (
                 <Card
@@ -140,8 +144,14 @@ const Pricing = () => {
                       {plan.description}
                     </CardDescription>
                     <div className="mt-6">
-                      <span className="text-5xl font-bold text-slate-900">${displayPrice}</span>
-                      <span className="text-slate-600 text-lg"> / month</span>
+                      {plan.isCustom ? (
+                        <div className="text-3xl font-bold text-slate-900">Custom Pricing</div>
+                      ) : (
+                        <>
+                          <span className="text-5xl font-bold text-slate-900">${displayPrice}</span>
+                          <span className="text-slate-600 text-lg"> / month</span>
+                        </>
+                      )}
                     </div>
                   </CardHeader>
                   
@@ -157,19 +167,28 @@ const Pricing = () => {
                   </CardContent>
                   
                   <CardFooter>
-                    <Button
-                      className={`w-full ${
-                        plan.popular
-                          ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:opacity-90 shadow-lg text-white'
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300'
-                      } font-semibold py-6 transition-all duration-300`}
-                      onClick={() => {
-                        setSelectedPlan(plan.name);
-                        setTrialOpen(true);
-                      }}
-                    >
-                      Start 14-Day Free Trial
-                    </Button>
+                    {plan.isCustom ? (
+                      <Button
+                        className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 shadow-lg text-white font-semibold py-6 transition-all duration-300"
+                        onClick={() => window.open(plan.customLink, '_blank')}
+                      >
+                        Speak to Team
+                      </Button>
+                    ) : (
+                      <Button
+                        className={`w-full ${
+                          plan.popular
+                            ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:opacity-90 shadow-lg text-white'
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300'
+                        } font-semibold py-6 transition-all duration-300`}
+                        onClick={() => {
+                          setSelectedPlan(plan.name);
+                          setTrialOpen(true);
+                        }}
+                      >
+                        Start 7-Day Free Trial
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               );
@@ -178,7 +197,7 @@ const Pricing = () => {
 
           <div className="text-center mt-12">
             <p className="text-slate-600 text-lg">
-              No contracts • Cancel anytime • 14-day free trial on all plans
+              No contracts • Cancel anytime • 7-day free trial on all plans
             </p>
           </div>
         </div>

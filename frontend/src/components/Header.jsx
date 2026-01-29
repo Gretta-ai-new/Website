@@ -30,19 +30,19 @@ const Header = () => {
         isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white/80 backdrop-blur-sm'
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20 py-3">
             <div className="flex items-center space-x-2">
               <Button
                 variant="outline"
-                className="border border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white font-medium text-sm h-9 px-4"
+                className="border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white font-medium text-sm h-10 px-5"
                 onClick={() => setBookingOpen(true)}
               >
-                <Calendar className="w-3.5 h-3.5 mr-1.5" />
+                <Calendar className="w-4 h-4 mr-2" />
                 Book Appointment
               </Button>
             </div>
 
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-7">
               <a href="#features" className="text-slate-700 hover:text-purple-600 transition-colors text-sm font-medium">Features</a>
               <a href="#pricing" className="text-slate-700 hover:text-purple-600 transition-colors text-sm font-medium">Pricing</a>
               <a href="#demo" className="text-slate-700 hover:text-purple-600 transition-colors text-sm font-medium">Try Demo</a>
@@ -61,14 +61,14 @@ const Header = () => {
             <div className="hidden md:flex items-center space-x-3">
               <Button 
                 variant="outline" 
-                className="border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-medium text-sm h-9 px-4"
+                className="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-medium text-sm h-10 px-5"
                 onClick={handleCallNow}
               >
-                <Phone className="w-3.5 h-3.5 mr-1.5" />
+                <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </Button>
               <Button 
-                className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white hover:opacity-90 font-medium shadow-md text-sm h-9 px-4"
+                className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white hover:opacity-90 font-medium shadow-md text-sm h-10 px-5"
                 onClick={() => setTrialOpen(true)}
               >
                 Start Free Trial
@@ -79,7 +79,7 @@ const Header = () => {
               className="md:hidden text-slate-700"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
@@ -87,13 +87,13 @@ const Header = () => {
             <div className="md:hidden pb-6 space-y-4">
               <Button
                 variant="outline"
-                className="border border-purple-500 text-purple-600 w-full font-medium text-sm"
+                className="border-2 border-purple-500 text-purple-600 w-full font-medium text-sm"
                 onClick={() => {
                   setBookingOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
               >
-                <Calendar className="w-3.5 h-3.5 mr-1.5" />
+                <Calendar className="w-4 h-4 mr-2" />
                 Book Appointment
               </Button>
               
@@ -114,10 +114,10 @@ const Header = () => {
               <div className="flex flex-col space-y-3 pt-4 border-t border-slate-200">
                 <Button 
                   variant="outline" 
-                  className="border border-blue-500 text-blue-600 w-full font-medium text-sm"
+                  className="border-2 border-blue-500 text-blue-600 w-full font-medium text-sm"
                   onClick={handleCallNow}
                 >
-                  <Phone className="w-3.5 h-3.5 mr-1.5" />
+                  <Phone className="w-4 h-4 mr-2" />
                   Call Now
                 </Button>
                 <Button 
