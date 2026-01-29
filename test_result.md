@@ -131,27 +131,33 @@ backend:
 
   - task: "Newsletter Subscription API"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py, models.py"
     stuck_count: 0
     priority: "low"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "POST /api/newsletter endpoint created but not yet integrated in frontend."
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed successfully. All scenarios tested: new subscription, duplicate email handling, invalid email validation. API correctly stores data in MongoDB and handles edge cases properly."
 
   - task: "Demo Request API"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py, models.py"
     stuck_count: 0
     priority: "low"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "POST /api/demo-request endpoint created but not yet integrated in frontend."
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed successfully. All scenarios tested: valid data with all fields, required fields only, preferred time validation. API correctly stores data in MongoDB and handles all input variations properly."
 
   - task: "Analytics API"
     implemented: true
