@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Phone, Menu, X } from 'lucide-react';
+import ContactModal from './ContactModal';
+import TrialModal from './TrialModal';
+
+const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/4cpjuxon_Untitled%20design%20%283%29.jpg';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [trialOpen, setTrialOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,18 +20,25 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleCallNow = () => {
+    window.location.href = 'tel:+611800473882';
+  };
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center space-x-3">
-            <div className="gretta-logo">
-              <div className="logo-gradient"></div>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            <div className="flex items-center space-x-3">
+              <img 
+                src={LOGO_URL} 
+                alt="Gretta AI Logo" 
+                className="h-12 w-12 object-contain"
+              />
+              <span className="text-2xl font-bold text-white">Gretta AI</span>
             </div>
-            <span className="text-2xl font-bold text-white">Gretta AI</span>
-          </div>
 
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-slate-200 hover:text-cyan-400 transition-colors">Features</a>
