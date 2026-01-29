@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Phone, Play, Pause, Volume2 } from 'lucide-react';
+import TrialModal from './TrialModal';
 
 const DemoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [trialOpen, setTrialOpen] = useState(false);
   const phoneNumber = '+61 XXX XXX XXX';
   const telLink = 'tel:+61XXXXXXXXX';
 
