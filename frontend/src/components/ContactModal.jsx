@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
-import { useToast } from '../hooks/use-toast';
+import { toast } from 'sonner';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 
