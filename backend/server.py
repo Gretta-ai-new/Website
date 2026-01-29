@@ -12,6 +12,7 @@ from models import (
     TrialSignup, TrialSignupCreate,
     Analytics
 )
+from retell import Retell
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -20,6 +21,10 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# Retell AI client
+retell_api_key = os.environ.get('RETELL_API_KEY')
+retell = Retell(api_key=retell_api_key) if retell_api_key else None
 
 # Create the main app without a prefix
 app = FastAPI()
