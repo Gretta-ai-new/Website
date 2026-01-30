@@ -176,7 +176,7 @@ const PushToSpeak = () => {
     }
     setIsCallActive(false);
     setIsConnecting(false);
-    setTranscript('');
+    setTranscript([]);
     setAgentSpeaking(false);
   }, [isCallActive]);
 
