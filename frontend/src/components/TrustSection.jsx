@@ -108,18 +108,3 @@ const TrustSection = () => {
 };
 
 export default TrustSection;
-          <Badge className="bg-white border-2 border-slate-200 text-slate-700 px-6 py-3 text-base shadow-md hover:shadow-lg transition-all">
-            <Shield className="w-4 h-4 mr-2" />
-            Australian Data Compliant
-          </Badge>
-          <Badge className="bg-white border-2 border-slate-200 text-slate-700 px-6 py-3 text-base shadow-md hover:shadow-lg transition-all">
-            <Shield className="w-4 h-4 mr-2" />
-            SOC 2 Type II Certified
-          </Badge>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default TrustSection;
