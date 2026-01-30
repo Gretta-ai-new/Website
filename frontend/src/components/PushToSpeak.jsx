@@ -107,14 +107,27 @@ const PushToSpeak = () => {
     setError(null);
 
     try {
-      // Request microphone permission first
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      });
-      stream.getTracks().forEach((track) => track.stop());
+      console.log('Starting Retell call...');
+      
+      // Request microphone permission - but don't stop the stream yet
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+          },
+          video: false,
+        });
+        console.log('Microphone access granted');
+        // Don't stop tracks - let Retell SDK handle the microphone
+      } catch (micError) {
+        console.error('Microphone permission error:', micError);
+        throw micError;
+      }
 
       // Call backend to create web call
+      console.log('Requesting access token from backend...');
       const response = await axios.post(`${BACKEND_URL}/api/retell/web-call`);
       const { access_token } = response.data;
 
@@ -122,19 +135,21 @@ const PushToSpeak = () => {
         throw new Error('No access token received');
       }
 
+      console.log('Access token received, starting call with Retell...');
+
       // Start the call with Retell
       await retellClientRef.current.startCall({
         accessToken: access_token,
+        sampleRate: 24000, // Ensure proper sample rate
+        enableUpdate: true, // Enable transcript updates
       });
 
-      toast.success('Connected!', {
-        description: 'You can now speak with Gretta AI'
-      });
+      console.log('Call started successfully');
 
     } catch (err) {
       console.error('Error starting call:', err);
       
-      if (err.name === 'NotAllowedError') {
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
         setError('Microphone access denied');
         toast.error('Microphone Access Required', {
           description: 'Please allow microphone access to speak with Gretta'
