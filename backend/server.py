@@ -115,22 +115,29 @@ async def create_hubspot_note(contact_id: str, note_text: str):
             "hs_timestamp": datetime.utcnow().isoformat() + "Z"
         }
         
-        input_obj = NoteInput(properties=properties)
+        # Create note with association to contact
+        from hubspot.crm.objects.notes import PublicAssociationsForObject, AssociationSpec
         
-        # Create the note
+        associations = [
+            PublicAssociationsForObject(
+                to={"id": contact_id},
+                types=[
+                    AssociationSpec(
+                        association_category="HUBSPOT_DEFINED",
+                        association_type_id=202  # Note to Contact
+                    )
+                ]
+            )
+        ]
+        
+        input_obj = NoteInput(properties=properties, associations=associations)
+        
+        # Create the note with associations
         response = hubspot_client.crm.objects.notes.basic_api.create(
             simple_public_object_input_for_create=input_obj
         )
         
-        # Associate note with contact
         note_id = response.id
-        hubspot_client.crm.objects.notes.associations_api.create(
-            note_id=note_id,
-            to_object_type="contact",
-            to_object_id=contact_id,
-            association_type_id=202  # Default note_to_contact association type
-        )
-        
         logging.info(f"Created HubSpot note {note_id} for contact {contact_id}")
         return {"note_id": note_id}
     
