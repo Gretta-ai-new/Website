@@ -152,6 +152,17 @@ async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str,
         return None
     
     try:
+        # First get the contact ID
+        contact_id = None
+        try:
+            contact = hubspot_client.crm.contacts.basic_api.get_by_id(
+                contact_email,
+                id_property="email"
+            )
+            contact_id = contact.id
+        except Exception as e:
+            logging.warning(f"Could not find contact for deal association: {e}")
+        
         properties = {
             "dealname": deal_name,
             "dealstage": "appointmentscheduled",  # Trial signup stage
@@ -159,7 +170,24 @@ async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str,
             "amount": str(amount),
         }
         
-        input_obj = DealInput(properties=properties)
+        # Create deal with association if contact exists
+        if contact_id:
+            from hubspot.crm.deals import PublicAssociationsForObject, AssociationSpec
+            
+            associations = [
+                PublicAssociationsForObject(
+                    to={"id": contact_id},
+                    types=[
+                        AssociationSpec(
+                            association_category="HUBSPOT_DEFINED",
+                            association_type_id=3  # Deal to Contact
+                        )
+                    ]
+                )
+            ]
+            input_obj = DealInput(properties=properties, associations=associations)
+        else:
+            input_obj = DealInput(properties=properties)
         
         # Create the deal
         response = hubspot_client.crm.deals.basic_api.create(
@@ -167,26 +195,7 @@ async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str,
         )
         
         deal_id = response.id
-        
-        # Associate deal with contact if possible
-        try:
-            contact = hubspot_client.crm.contacts.basic_api.get_by_id(
-                contact_email,
-                id_property="email"
-            )
-            
-            hubspot_client.crm.deals.associations_api.create(
-                deal_id=deal_id,
-                to_object_type="contact",
-                to_object_id=contact.id,
-                association_type_id=3  # Default deal_to_contact association type
-            )
-            
-            logging.info(f"Associated deal {deal_id} with contact {contact.id}")
-        except Exception as e:
-            logging.warning(f"Could not associate deal with contact: {e}")
-        
-        logging.info(f"Created HubSpot deal: {deal_id}")
+        logging.info(f"Created HubSpot deal: {deal_id}" + (f" (associated with contact {contact_id})" if contact_id else ""))
         return {"deal_id": deal_id}
     
     except Exception as e:
