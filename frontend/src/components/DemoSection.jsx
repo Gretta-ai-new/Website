@@ -1,65 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Phone, Play, Pause, Volume2 } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import TrialModal from './TrialModal';
-import { toast } from 'sonner';
 
 const DemoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [trialOpen, setTrialOpen] = useState(false);
-  const audioRef = useRef(null);
   const phoneNumber = '+61 XXX XXX XXX';
   const telLink = 'tel:+61XXXXXXXXX';
-
-  // Demo audio URL - using a simple beep sound for demonstration
-  // In production, replace with actual Gretta AI demo audio
-  const demoAudioUrl = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTUIGWa67eueUQ4OT6bp8r9sIQU2jdXx05pBA08=';
-
-  useEffect(() => {
-    // Create audio element
-    audioRef.current = new Audio(demoAudioUrl);
-    audioRef.current.loop = false;
-    
-    // Handle audio end
-    audioRef.current.addEventListener('ended', () => {
-      setIsPlaying(false);
-    });
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
-  const toggleAudio = () => {
-    if (!audioRef.current) {
-      toast.error('Audio not available', {
-        description: 'Demo audio is not loaded. Please try again.'
-      });
-      return;
-    }
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-      toast.info('Demo paused');
-    } else {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-        toast.success('Playing demo conversation', {
-          description: 'This is a sample audio. In production, this would be an actual Gretta AI conversation recording.'
-        });
-      }).catch((error) => {
-        console.error('Audio play error:', error);
-        toast.error('Could not play audio', {
-          description: 'Please check your browser settings and try again.'
-        });
-      });
-    }
-  };
 
   return (
     <>
