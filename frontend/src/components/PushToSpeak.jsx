@@ -232,10 +232,21 @@ const PushToSpeak = () => {
         )}
 
         {/* Transcript */}
-        {transcript && isCallActive && (
+        {transcript && transcript.length > 0 && isCallActive && (
           <div className="p-4 bg-slate-50 rounded-lg max-h-32 overflow-y-auto">
             <p className="text-xs text-slate-500 font-semibold mb-1">Conversation:</p>
-            <p className="text-sm text-slate-800">{transcript}</p>
+            <div className="space-y-2">
+              {Array.isArray(transcript) ? (
+                transcript.map((item, index) => (
+                  <p key={index} className={`text-sm ${item.role === 'agent' ? 'text-purple-700 font-medium' : 'text-slate-800'}`}>
+                    <span className="font-semibold">{item.role === 'agent' ? 'Gretta: ' : 'You: '}</span>
+                    {item.content}
+                  </p>
+                ))
+              ) : (
+                <p className="text-sm text-slate-800">{String(transcript)}</p>
+              )}
+            </div>
           </div>
         )}
 
