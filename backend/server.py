@@ -286,7 +286,25 @@ async def create_contact(contact_data: ContactCreate):
     try:
         contact = Contact(**contact_data.dict())
         await db.contacts.insert_one(contact.dict())
-        return {"success": True, "message": "Contact request submitted successfully"}
+        
+        # Sync to HubSpot
+        hubspot_result = await sync_contact_to_hubspot(
+            name=contact_data.name,
+            email=contact_data.email,
+            company=getattr(contact_data, 'company', None),
+            interest=getattr(contact_data, 'message', None)
+        )
+        
+        # Add note with form details if contact was created/updated in HubSpot
+        if hubspot_result and hubspot_result.get("hubspot_id"):
+            note_text = f"Contact Form Submission\n\nName: {contact_data.name}\nEmail: {contact_data.email}\nMessage: {getattr(contact_data, 'message', 'N/A')}"
+            await create_hubspot_note(hubspot_result["hubspot_id"], note_text)
+        
+        return {
+            "success": True, 
+            "message": "Contact request submitted successfully",
+            "hubspot_synced": hubspot_result is not None
+        }
     except Exception as e:
         logging.error(f"Error creating contact: {e}")
         raise HTTPException(status_code=500, detail="Failed to submit contact request")
