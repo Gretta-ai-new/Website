@@ -1,102 +1,113 @@
 import React from 'react';
 import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
-import { Shield, Users, Star, TrendingUp } from 'lucide-react';
+import { Shield, Clock, Zap, HeartHandshake, Star, Quote } from 'lucide-react';
 
 const TrustSection = () => {
   const stats = [
-    { icon: Users, value: '100+', label: 'Businesses Automated' },
-    { icon: Star, value: '4.9/5', label: 'Voice Quality Rating' },
-    { icon: TrendingUp, value: '98%', label: 'Customer Satisfaction' },
-    { icon: Shield, value: '100%', label: 'Enterprise Security' }
+    { icon: Clock, value: '24/7', label: 'Availability' },
+    { icon: Zap, value: '<1s', label: 'Response Time' },
+    { icon: HeartHandshake, value: '98%', label: 'Satisfaction' },
+    { icon: Shield, value: '100%', label: 'Secure' }
   ];
 
   const testimonials = [
     {
-      quote: "Gretta has transformed how we handle patient calls. We've gone from missing 30% of calls to answering 100% — even after hours.",
+      quote: "Gretta has transformed how we handle patient calls. We've gone from missing 30% of calls to answering 100%.",
       author: "Dr. Sarah Mitchell",
-      role: "Medical Clinic Director",
-      company: "HealthFirst Clinics"
+      role: "Medical Clinic Director"
     },
     {
-      quote: "The SMS automation alone saved us 20 hours a week. Adding voice capabilities was game-changing for our sales team.",
+      quote: "The SMS automation alone saved us 20 hours a week. Adding voice was game-changing for sales.",
       author: "James Rodriguez",
-      role: "Operations Manager",
-      company: "PropTech Realty"
+      role: "Operations Manager"
     },
     {
-      quote: "Our clients love how natural Gretta sounds. Most don't even realize they're talking to AI until we tell them.",
+      quote: "Our clients love how natural Gretta sounds. Most don't realize they're talking to AI.",
       author: "Emily Chen",
-      role: "Agency Owner",
-      company: "Digital Growth Co"
+      role: "Agency Owner"
     }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-100/10 via-transparent to-transparent"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <Badge className="mb-6 bg-gradient-to-r from-green-100 to-emerald-100 border border-green-300 text-green-700 shadow-sm">
-            Trusted by Industry Leaders
-          </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
-            Built for Scale,{' '}
-            <span className="text-gradient bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Designed for Trust
-            </span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+    <section className="py-20 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 mb-16 lg:mb-20">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <Card
+              <div
                 key={index}
-                className="bg-white border-2 border-slate-200 hover:border-purple-300 transition-all duration-300 shadow-lg hover:shadow-xl text-center"
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-purple-50/50 border border-slate-100"
               >
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <p className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</p>
-                  <p className="text-sm text-slate-600 font-medium">{stat.label}</p>
-                </CardContent>
-              </Card>
+                <div className="w-10 h-10 mx-auto mb-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <p className="text-2xl lg:text-3xl font-bold text-slate-900">{stat.value}</p>
+                <p className="text-sm text-slate-500">{stat.label}</p>
+              </div>
             );
           })}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {/* Testimonials Header */}
+        <div className="text-center mb-12">
+          <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Testimonials</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+            Trusted by{' '}
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Growing Businesses
+            </span>
+          </h2>
+        </div>
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
-              className="bg-white border-2 border-slate-200 hover:border-purple-300 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-white border border-slate-200 hover:border-purple-200 transition-all duration-300 hover:shadow-md"
             >
-              <CardContent className="pt-6">
-                <div className="mb-4">
+              <CardContent className="p-6">
+                <Quote className="w-8 h-8 text-purple-200 mb-4" />
+                <p className="text-slate-700 mb-6 leading-relaxed text-sm">"{testimonial.quote}"</p>
+                <div className="flex items-center gap-1 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 inline-block text-yellow-500 fill-yellow-500" />
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-slate-700 mb-6 leading-relaxed italic">"{testimonial.quote}"</p>
-                <div className="border-t border-slate-200 pt-4">
-                  <p className="text-slate-900 font-semibold">{testimonial.author}</p>
-                  <p className="text-sm text-slate-600">{testimonial.role}</p>
-                  <p className="text-sm text-blue-600 font-medium">{testimonial.company}</p>
-                </div>
+                <p className="text-slate-900 font-semibold text-sm">{testimonial.author}</p>
+                <p className="text-xs text-slate-500">{testimonial.role}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-12">
-          <Badge className="bg-white border-2 border-slate-200 text-slate-700 px-6 py-3 text-base shadow-md hover:shadow-lg transition-all">
-            <Shield className="w-4 h-4 mr-2" />
-            Enterprise-grade Encryption
-          </Badge>
+        {/* Trust Badges */}
+        <div className="mt-16 flex flex-wrap justify-center gap-6 text-slate-500 text-sm">
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            <span>Enterprise-grade Security</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>SOC 2 Compliant</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>GDPR Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TrustSection;
           <Badge className="bg-white border-2 border-slate-200 text-slate-700 px-6 py-3 text-base shadow-md hover:shadow-lg transition-all">
             <Shield className="w-4 h-4 mr-2" />
             Australian Data Compliant
