@@ -80,7 +80,7 @@ const DemoSection = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <Card className="bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-slate-900 text-2xl text-center">Call Gretta Live</CardTitle>
@@ -107,70 +107,6 @@ const DemoSection = () => {
 
                 <p className="text-sm text-slate-500 leading-relaxed">
                   Ask anything — book a fake appointment, get business info, or just chat. No sign-up needed.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="text-slate-900 text-2xl text-center">Watch Demo Conversation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-6 border border-slate-200">
-                  <div className="flex items-center justify-center mb-6">
-                    <div className={`w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center relative shadow-xl ${
-                      isPlaying ? 'animate-pulse' : ''
-                    }`}>
-                      <Volume2 className={`w-16 h-16 text-white ${
-                        isPlaying ? 'animate-pulse' : ''
-                      }`} />
-                      {isPlaying && (
-                        <div className="absolute inset-0 rounded-full">
-                          <div className="waveform-animation"></div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 mb-6">
-                    <div className="bg-white rounded-lg p-4 text-left border border-blue-200 shadow-sm">
-                      <p className="text-xs text-blue-600 mb-1 font-semibold">CALLER</p>
-                      <p className="text-slate-900">"Hi, I'd like to book an appointment for next Tuesday."</p>
-                    </div>
-                    <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-4 text-left border border-purple-200 shadow-sm">
-                      <p className="text-xs text-purple-700 mb-1 font-semibold">GRETTA AI</p>
-                      <p className="text-slate-900">"Of course! I have availability at 10 AM, 2 PM, or 4 PM. Which works best for you?"</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 text-left border border-blue-200 shadow-sm">
-                      <p className="text-xs text-blue-600 mb-1 font-semibold">CALLER</p>
-                      <p className="text-slate-900">"2 PM would be perfect."</p>
-                    </div>
-                    <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-4 text-left border border-purple-200 shadow-sm">
-                      <p className="text-xs text-purple-700 mb-1 font-semibold">GRETTA AI</p>
-                      <p className="text-slate-900">"Great! You're all set for Tuesday at 2 PM. I'll send you a confirmation text shortly."</p>
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={toggleAudio}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg"
-                  >
-                    {isPlaying ? (
-                      <>
-                        <Pause className="w-5 h-5 mr-2" />
-                        Pause Demo
-                      </>
-                    ) : (
-                      <>
-                        <Play className="w-5 h-5 mr-2" />
-                        Play Demo Audio
-                      </>
-                    )}
-                  </Button>
-                </div>
-
-                <p className="text-sm text-slate-500 text-center">
-                  Sample audio demonstration - In production, this would feature actual Gretta AI conversation
                 </p>
               </CardContent>
             </Card>
