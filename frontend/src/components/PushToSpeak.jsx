@@ -47,7 +47,7 @@ const PushToSpeak = () => {
       console.log('Call ended');
       setIsCallActive(false);
       setIsConnecting(false);
-      setTranscript('');
+      setTranscript([]);
       setAgentSpeaking(false);
       toast.info('Call ended', {
         description: 'Feel free to start another conversation'
