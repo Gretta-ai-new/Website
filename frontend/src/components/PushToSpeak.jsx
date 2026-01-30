@@ -180,16 +180,16 @@ const PushToSpeak = () => {
 
         {/* Mic Animation */}
         {(isCallActive || isConnecting) && (
-          <div className=\"flex justify-center\">
+          <div className="flex justify-center">
             <div className={`relative w-24 h-24 rounded-full flex items-center justify-center ${
               agentSpeaking 
                 ? 'bg-gradient-to-br from-purple-500 to-pink-500' 
                 : 'bg-gradient-to-br from-blue-500 to-cyan-500'
             } ${isConnecting ? 'animate-pulse' : ''}`}>
               {agentSpeaking && (
-                <div className=\"absolute inset-0 rounded-full animate-ping opacity-75 bg-purple-400\"></div>
+                <div className="absolute inset-0 rounded-full animate-ping opacity-75 bg-purple-400"></div>
               )}
-              <Volume2 className=\"w-12 h-12 text-white relative z-10\" />
+              <Volume2 className="w-12 h-12 text-white relative z-10" />
             </div>
           </div>
         )}
