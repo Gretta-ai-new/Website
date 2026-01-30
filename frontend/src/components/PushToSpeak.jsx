@@ -196,13 +196,13 @@ const PushToSpeak = () => {
 
         {/* Status Text */}
         {isCallActive && (
-          <div className=\"text-center text-sm\">
+          <div className="text-center text-sm">
             {agentSpeaking ? (
-              <p className=\"text-purple-600 font-semibold animate-pulse\">
+              <p className="text-purple-600 font-semibold animate-pulse">
                 Gretta is speaking...
               </p>
             ) : (
-              <p className=\"text-blue-600 font-semibold\">
+              <p className="text-blue-600 font-semibold">
                 Your turn to speak
               </p>
             )}
@@ -211,16 +211,16 @@ const PushToSpeak = () => {
 
         {/* Error Message */}
         {error && (
-          <div className=\"p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700 text-center\">
+          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700 text-center">
             {error}
           </div>
         )}
 
         {/* Transcript */}
         {transcript && isCallActive && (
-          <div className=\"p-4 bg-slate-50 rounded-lg max-h-32 overflow-y-auto\">
-            <p className=\"text-xs text-slate-500 font-semibold mb-1\">Conversation:</p>
-            <p className=\"text-sm text-slate-800\">{transcript}</p>
+          <div className="p-4 bg-slate-50 rounded-lg max-h-32 overflow-y-auto">
+            <p className="text-xs text-slate-500 font-semibold mb-1">Conversation:</p>
+            <p className="text-sm text-slate-800">{transcript}</p>
           </div>
         )}
 
