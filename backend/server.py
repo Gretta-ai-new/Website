@@ -16,9 +16,10 @@ from models import (
 )
 from retell import Retell
 from hubspot import HubSpot
-from hubspot.crm.contacts import SimplePublicObjectInput
-from hubspot.crm.deals import SimplePublicObjectInput as DealInput
-from hubspot.crm.objects.notes import SimplePublicObjectInput as NoteInput
+from hubspot.crm.contacts import SimplePublicObjectInputForCreate as ContactInput
+from hubspot.crm.contacts import SimplePublicObjectInput as ContactUpdateInput
+from hubspot.crm.deals import SimplePublicObjectInputForCreate as DealInput
+from hubspot.crm.objects.notes import SimplePublicObjectInputForCreate as NoteInput
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
