@@ -414,7 +414,35 @@ async def create_trial_signup(trial_data: TrialSignupCreate):
         
         trial_signup = TrialSignup(**trial_data.dict())
         await db.trial_signups.insert_one(trial_signup.dict())
-        return {"success": True, "message": "Free trial signup successful! We'll contact you shortly."}
+        
+        # Sync to HubSpot - create contact
+        hubspot_result = await sync_contact_to_hubspot(
+            name=trial_data.name,
+            email=trial_data.email,
+            company=trial_data.company,
+            interest=trial_data.plan
+        )
+        
+        # Create HubSpot deal for trial signup
+        if hubspot_result:
+            deal_name = f"Trial Signup - {trial_data.plan} - {trial_data.name}"
+            deal_result = await create_hubspot_deal(
+                contact_email=trial_data.email,
+                deal_name=deal_name,
+                interest=trial_data.plan,
+                amount=0
+            )
+            
+            # Add note with trial details
+            if hubspot_result.get("hubspot_id"):
+                note_text = f"Free Trial Signup\n\nName: {trial_data.name}\nEmail: {trial_data.email}\nCompany: {trial_data.company}\nPlan: {trial_data.plan}"
+                await create_hubspot_note(hubspot_result["hubspot_id"], note_text)
+        
+        return {
+            "success": True, 
+            "message": "Free trial signup successful! We'll contact you shortly.",
+            "hubspot_synced": hubspot_result is not None
+        }
     except Exception as e:
         logging.error(f"Error creating trial signup: {e}")
         raise HTTPException(status_code=500, detail="Failed to sign up for trial")
