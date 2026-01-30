@@ -225,40 +225,40 @@ const PushToSpeak = () => {
         )}
 
         {/* Call Control Button */}
-        <div className=\"flex justify-center\">
+        <div className="flex justify-center">
           {!isCallActive && !isConnecting ? (
             <Button
               onClick={startCall}
-              size=\"lg\"
-              className=\"bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105\"
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
             >
-              <Mic className=\"w-5 h-5 mr-2\" />
+              <Mic className="w-5 h-5 mr-2" />
               Push to Speak with Gretta
             </Button>
           ) : isConnecting ? (
             <Button
               disabled
-              size=\"lg\"
-              className=\"bg-slate-400 text-white font-semibold px-8 py-6\"
+              size="lg"
+              className="bg-slate-400 text-white font-semibold px-8 py-6"
             >
-              <Loader2 className=\"w-5 h-5 mr-2 animate-spin\" />
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
               Connecting...
             </Button>
           ) : (
             <Button
               onClick={endCall}
-              size=\"lg\"
-              className=\"bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-6 shadow-xl transition-all duration-300\"
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-6 shadow-xl transition-all duration-300"
             >
-              <PhoneOff className=\"w-5 h-5 mr-2\" />
+              <PhoneOff className="w-5 h-5 mr-2" />
               End Call
             </Button>
           )}
         </div>
 
-        {/* Demo Mode Notice */}
-        <div className=\"text-center text-xs text-slate-500 italic\">
-          Demo mode • Requires backend integration for live calls
+        {/* Live Notice */}
+        <div className="text-center text-xs text-slate-500 italic">
+          Live voice AI powered by Retell
         </div>
       </div>
     </Card>
