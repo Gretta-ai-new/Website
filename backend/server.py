@@ -334,10 +334,32 @@ async def create_demo_request(demo_data: DemoRequestCreate):
         demo_request = DemoRequest(**demo_data.dict())
         result = await db.demo_requests.insert_one(demo_request.dict())
         
+        # Sync to HubSpot
+        hubspot_result = await sync_contact_to_hubspot(
+            name=demo_request.name,
+            email=demo_request.email,
+            phone=demo_request.phone,
+            company=demo_request.company,
+            interest=demo_request.plan_type
+        )
+        
+        # Add note with booking details if contact was created/updated in HubSpot
+        if hubspot_result and hubspot_result.get("hubspot_id"):
+            note_text = f"Booking/Demo Request\n\nName: {demo_request.name}\nEmail: {demo_request.email}\nPhone: {demo_request.phone}\nCompany: {demo_request.company}\nInterest: {demo_request.plan_type}"
+            await create_hubspot_note(hubspot_result["hubspot_id"], note_text)
+        
+        # Create Cal.com booking
+        cal_booking = await create_cal_booking(
+            name=demo_request.name,
+            email=demo_request.email
+        )
+        
         # Return the data in a format suitable for webhooks
         return {
             "success": True, 
             "message": "Demo request submitted successfully",
+            "hubspot_synced": hubspot_result is not None,
+            "cal_booking_created": cal_booking is not None,
             "data": {
                 "id": str(result.inserted_id),
                 "name": demo_request.name,
