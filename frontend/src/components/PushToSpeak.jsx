@@ -66,7 +66,25 @@ const PushToSpeak = () => {
 
     const handleUpdate = (update) => {
       if (update.transcript) {
-        setTranscript(update.transcript);
+        // Handle different transcript formats from Retell SDK
+        const rawTranscript = update.transcript;
+        
+        if (Array.isArray(rawTranscript)) {
+          // Already an array of {role, content} objects
+          setTranscript(rawTranscript);
+        } else if (typeof rawTranscript === 'string') {
+          // Simple string - wrap in array format
+          setTranscript([{ role: 'agent', content: rawTranscript }]);
+        } else if (typeof rawTranscript === 'object' && rawTranscript !== null) {
+          // Single object with role/content
+          if (rawTranscript.role && rawTranscript.content) {
+            setTranscript([rawTranscript]);
+          } else {
+            // Unknown object format - convert to string
+            console.warn('Unknown transcript format:', rawTranscript);
+            setTranscript([{ role: 'agent', content: JSON.stringify(rawTranscript) }]);
+          }
+        }
       }
     };
 
