@@ -16,6 +16,27 @@ const PushToSpeak = () => {
   const [error, setError] = useState(null);
   const retellClientRef = useRef(null);
 
+  // Helper to safely extract content from transcript item
+  const getTranscriptContent = (item) => {
+    if (typeof item === 'string') return item;
+    if (item && typeof item.content === 'string') return item.content;
+    if (item && typeof item.text === 'string') return item.text;
+    if (item && typeof item.message === 'string') return item.message;
+    try {
+      return JSON.stringify(item);
+    } catch {
+      return '[Unable to display]';
+    }
+  };
+
+  // Helper to get speaker role
+  const getSpeakerRole = (item) => {
+    if (typeof item === 'string') return 'agent';
+    if (item && item.role) return item.role;
+    if (item && item.speaker) return item.speaker;
+    return 'agent';
+  };
+
   // Initialize Retell client
   useEffect(() => {
     retellClientRef.current = new RetellWebClient();
