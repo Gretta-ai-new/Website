@@ -119,7 +119,7 @@ async def create_hubspot_note(contact_id: str, note_text: str):
         
         # Create the note
         response = hubspot_client.crm.objects.notes.basic_api.create(
-            simple_public_object_input=input_obj
+            simple_public_object_input_for_create=input_obj
         )
         
         # Associate note with contact
@@ -156,7 +156,7 @@ async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str,
         
         # Create the deal
         response = hubspot_client.crm.deals.basic_api.create(
-            simple_public_object_input=input_obj
+            simple_public_object_input_for_create=input_obj
         )
         
         deal_id = response.id
