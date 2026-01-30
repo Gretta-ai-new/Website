@@ -5,6 +5,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
+from datetime import datetime, timedelta
+import httpx
 from models import (
     Contact, ContactCreate,
     NewsletterSubscriber, NewsletterCreate,
@@ -13,6 +15,10 @@ from models import (
     Analytics
 )
 from retell import Retell
+from hubspot import HubSpot
+from hubspot.crm.contacts import SimplePublicObjectInput
+from hubspot.crm.deals import SimplePublicObjectInput as DealInput
+from hubspot.crm.objects.notes import SimplePublicObjectInput as NoteInput
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -25,6 +31,14 @@ db = client[os.environ['DB_NAME']]
 # Retell AI client
 retell_api_key = os.environ.get('RETELL_API_KEY')
 retell = Retell(api_key=retell_api_key) if retell_api_key else None
+
+# Cal.com API configuration
+cal_api_key = os.environ.get('CAL_API_KEY')
+cal_api_url = "https://api.cal.com/v2"
+
+# HubSpot client
+hubspot_api_key = os.environ.get('HUBSPOT_API_KEY')
+hubspot_client = HubSpot(access_token=hubspot_api_key) if hubspot_api_key else None
 
 # Create the main app without a prefix
 app = FastAPI()
