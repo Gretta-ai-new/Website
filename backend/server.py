@@ -73,8 +73,6 @@ async def sync_contact_to_hubspot(name: str, email: str, phone: str = None, comp
         if company:
             properties["company"] = company
         
-        input_obj = SimplePublicObjectInput(properties=properties)
-        
         # Try to get existing contact by email
         try:
             existing = hubspot_client.crm.contacts.basic_api.get_by_id(
@@ -82,17 +80,19 @@ async def sync_contact_to_hubspot(name: str, email: str, phone: str = None, comp
                 id_property="email"
             )
             # Update existing contact
+            update_obj = ContactUpdateInput(properties=properties)
             response = hubspot_client.crm.contacts.basic_api.update(
                 contact_id=existing.id,
-                simple_public_object_input=input_obj
+                simple_public_object_input=update_obj
             )
             logging.info(f"Updated HubSpot contact: {existing.id}")
             return {"hubspot_id": existing.id, "action": "updated"}
         except Exception as e:
             if "404" in str(e) or "NOT_FOUND" in str(e).upper():
                 # Contact doesn't exist, create new one
+                create_obj = ContactInput(properties=properties)
                 response = hubspot_client.crm.contacts.basic_api.create(
-                    simple_public_object_input=input_obj
+                    simple_public_object_input_for_create=create_obj
                 )
                 logging.info(f"Created HubSpot contact: {response.id}")
                 return {"hubspot_id": response.id, "action": "created"}
