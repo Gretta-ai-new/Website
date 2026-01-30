@@ -11,7 +11,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const PushToSpeak = () => {
   const [isCallActive, setIsCallActive] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState([]);
   const [agentSpeaking, setAgentSpeaking] = useState(false);
   const [error, setError] = useState(null);
   const retellClientRef = useRef(null);
