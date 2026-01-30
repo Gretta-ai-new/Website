@@ -212,23 +212,19 @@ async def create_cal_booking(name: str, email: str, event_type_slug: str = "30mi
         return None
     
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
+        async with httpx.AsyncClient(timeout=30.0) as http_client:
             headers = {
                 "Authorization": f"Bearer {cal_api_key}",
                 "Content-Type": "application/json",
-                "cal-api-version": "2024-08-13"
+                "cal-api-version": "2024-09-04"
             }
             
-            # Split name
-            name_parts = name.split(" ", 1)
-            firstname = name_parts[0]
-            
             # Get available slots first
-            tomorrow = (datetime.utcnow() + timedelta(days=1)).isoformat() + "Z"
-            next_week = (datetime.utcnow() + timedelta(days=7)).isoformat() + "Z"
+            tomorrow = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
+            next_week = (datetime.utcnow() + timedelta(days=7)).strftime("%Y-%m-%d")
             
-            slots_response = await client.get(
-                f"{cal_api_url}/slots",
+            slots_response = await http_client.get(
+                f"{cal_api_url}/slots/available",
                 headers=headers,
                 params={
                     "eventTypeSlug": event_type_slug,
@@ -250,7 +246,7 @@ async def create_cal_booking(name: str, email: str, event_type_slug: str = "30mi
             first_slot = None
             for date, slots in available_slots.items():
                 if slots and len(slots) > 0:
-                    first_slot = slots[0].get("start")
+                    first_slot = slots[0].get("start") or slots[0].get("time")
                     break
             
             if not first_slot:
@@ -272,7 +268,7 @@ async def create_cal_booking(name: str, email: str, event_type_slug: str = "30mi
                 }
             }
             
-            response = await client.post(
+            response = await http_client.post(
                 f"{cal_api_url}/bookings",
                 headers=headers,
                 json=booking_payload
