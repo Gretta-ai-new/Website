@@ -206,32 +206,29 @@ async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str,
 # ============ Cal.com Integration Helpers ============
 
 async def create_cal_booking(name: str, email: str, event_type_slug: str = "30min", username: str = "gretta-ai"):
-    """Create a booking in Cal.com"""
+    """Create a booking in Cal.com using v1 API"""
     if not cal_api_key:
         logging.warning("Cal.com not configured, skipping booking creation")
         return None
     
     try:
         async with httpx.AsyncClient(timeout=30.0) as http_client:
-            headers = {
-                "Authorization": f"Bearer {cal_api_key}",
-                "Content-Type": "application/json",
-                "cal-api-version": "2024-09-04"
-            }
+            # Use v1 API which works with the API key
+            cal_v1_url = "https://api.cal.com/v1"
             
             # Get available slots first
             tomorrow = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
             next_week = (datetime.utcnow() + timedelta(days=7)).strftime("%Y-%m-%d")
             
             slots_response = await http_client.get(
-                f"{cal_api_url}/slots/available",
-                headers=headers,
+                f"{cal_v1_url}/slots",
                 params={
                     "eventTypeSlug": event_type_slug,
-                    "username": username,
+                    "usernameList": username,
                     "startTime": tomorrow,
                     "endTime": next_week,
-                    "timeZone": "UTC"
+                    "timeZone": "UTC",
+                    "apiKey": cal_api_key
                 }
             )
             
@@ -240,37 +237,65 @@ async def create_cal_booking(name: str, email: str, event_type_slug: str = "30mi
                 return None
             
             slots_data = slots_response.json()
-            available_slots = slots_data.get("data", {})
+            available_slots = slots_data.get("slots", {})
             
             # Get first available slot
             first_slot = None
             for date, slots in available_slots.items():
                 if slots and len(slots) > 0:
-                    first_slot = slots[0].get("start") or slots[0].get("time")
+                    first_slot = slots[0].get("time")
                     break
             
             if not first_slot:
                 logging.warning("No available Cal.com slots found")
                 return None
             
-            # Create booking
+            logging.info(f"Found available Cal.com slot: {first_slot}")
+            
+            # For v1 API, we need the event type ID - let's get it first
+            event_types_response = await http_client.get(
+                f"{cal_v1_url}/event-types",
+                params={"apiKey": cal_api_key}
+            )
+            
+            if event_types_response.status_code != 200:
+                logging.error(f"Cal.com event types error: {event_types_response.text}")
+                return None
+            
+            event_types_data = event_types_response.json()
+            event_type_id = None
+            
+            for et in event_types_data.get("event_types", []):
+                if et.get("slug") == event_type_slug:
+                    event_type_id = et.get("id")
+                    break
+            
+            if not event_type_id:
+                logging.warning(f"Could not find event type with slug: {event_type_slug}")
+                return None
+            
+            # Create booking using v1 API
             booking_payload = {
+                "eventTypeId": event_type_id,
                 "start": first_slot,
-                "eventTypeSlug": event_type_slug,
-                "username": username,
-                "attendee": {
+                "responses": {
                     "name": name,
                     "email": email,
-                    "timeZone": "UTC"
+                    "location": {
+                        "optionValue": "",
+                        "value": "integrations:daily"
+                    }
                 },
+                "timeZone": "UTC",
+                "language": "en",
                 "metadata": {
                     "source": "gretta-ai-website"
                 }
             }
             
             response = await http_client.post(
-                f"{cal_api_url}/bookings",
-                headers=headers,
+                f"{cal_v1_url}/bookings",
+                params={"apiKey": cal_api_key},
                 json=booking_payload
             )
             
@@ -280,7 +305,7 @@ async def create_cal_booking(name: str, email: str, event_type_slug: str = "30mi
             
             result = response.json()
             logging.info(f"Created Cal.com booking: {result}")
-            return result.get("data", {})
+            return result
     
     except Exception as e:
         logging.error(f"Error creating Cal.com booking: {e}")
