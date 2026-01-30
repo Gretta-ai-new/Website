@@ -47,6 +47,233 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 
+# ============ HubSpot Integration Helpers ============
+
+async def sync_contact_to_hubspot(name: str, email: str, phone: str = None, company: str = None, interest: str = None):
+    """Create or update a contact in HubSpot"""
+    if not hubspot_client:
+        logging.warning("HubSpot not configured, skipping sync")
+        return None
+    
+    try:
+        # Split name into first and last name
+        name_parts = name.split(" ", 1)
+        firstname = name_parts[0]
+        lastname = name_parts[1] if len(name_parts) > 1 else ""
+        
+        properties = {
+            "firstname": firstname,
+            "lastname": lastname,
+            "email": email,
+        }
+        
+        if phone:
+            properties["phone"] = phone
+        if company:
+            properties["company"] = company
+        
+        input_obj = SimplePublicObjectInput(properties=properties)
+        
+        # Try to get existing contact by email
+        try:
+            existing = hubspot_client.crm.contacts.basic_api.get_by_id(
+                email,
+                id_property="email"
+            )
+            # Update existing contact
+            response = hubspot_client.crm.contacts.basic_api.update(
+                contact_id=existing.id,
+                simple_public_object_input=input_obj
+            )
+            logging.info(f"Updated HubSpot contact: {existing.id}")
+            return {"hubspot_id": existing.id, "action": "updated"}
+        except Exception as e:
+            if "404" in str(e) or "NOT_FOUND" in str(e).upper():
+                # Contact doesn't exist, create new one
+                response = hubspot_client.crm.contacts.basic_api.create(
+                    simple_public_object_input=input_obj
+                )
+                logging.info(f"Created HubSpot contact: {response.id}")
+                return {"hubspot_id": response.id, "action": "created"}
+            else:
+                raise
+    
+    except Exception as e:
+        logging.error(f"Error syncing to HubSpot: {e}")
+        return None
+
+
+async def create_hubspot_note(contact_id: str, note_text: str):
+    """Create a note associated with a contact in HubSpot"""
+    if not hubspot_client:
+        return None
+    
+    try:
+        properties = {
+            "hs_note_body": note_text,
+            "hs_timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        
+        input_obj = NoteInput(properties=properties)
+        
+        # Create the note
+        response = hubspot_client.crm.objects.notes.basic_api.create(
+            simple_public_object_input=input_obj
+        )
+        
+        # Associate note with contact
+        note_id = response.id
+        hubspot_client.crm.objects.notes.associations_api.create(
+            note_id=note_id,
+            to_object_type="contact",
+            to_object_id=contact_id,
+            association_type_id=202  # Default note_to_contact association type
+        )
+        
+        logging.info(f"Created HubSpot note {note_id} for contact {contact_id}")
+        return {"note_id": note_id}
+    
+    except Exception as e:
+        logging.error(f"Error creating HubSpot note: {e}")
+        return None
+
+
+async def create_hubspot_deal(contact_email: str, deal_name: str, interest: str, amount: float = 0):
+    """Create a deal in HubSpot for trial signups"""
+    if not hubspot_client:
+        return None
+    
+    try:
+        properties = {
+            "dealname": deal_name,
+            "dealstage": "appointmentscheduled",  # Trial signup stage
+            "pipeline": "default",
+            "amount": str(amount),
+        }
+        
+        input_obj = DealInput(properties=properties)
+        
+        # Create the deal
+        response = hubspot_client.crm.deals.basic_api.create(
+            simple_public_object_input=input_obj
+        )
+        
+        deal_id = response.id
+        
+        # Associate deal with contact if possible
+        try:
+            contact = hubspot_client.crm.contacts.basic_api.get_by_id(
+                contact_email,
+                id_property="email"
+            )
+            
+            hubspot_client.crm.deals.associations_api.create(
+                deal_id=deal_id,
+                to_object_type="contact",
+                to_object_id=contact.id,
+                association_type_id=3  # Default deal_to_contact association type
+            )
+            
+            logging.info(f"Associated deal {deal_id} with contact {contact.id}")
+        except Exception as e:
+            logging.warning(f"Could not associate deal with contact: {e}")
+        
+        logging.info(f"Created HubSpot deal: {deal_id}")
+        return {"deal_id": deal_id}
+    
+    except Exception as e:
+        logging.error(f"Error creating HubSpot deal: {e}")
+        return None
+
+
+# ============ Cal.com Integration Helpers ============
+
+async def create_cal_booking(name: str, email: str, event_type_slug: str = "30min", username: str = "gretta-ai"):
+    """Create a booking in Cal.com"""
+    if not cal_api_key:
+        logging.warning("Cal.com not configured, skipping booking creation")
+        return None
+    
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            headers = {
+                "Authorization": f"Bearer {cal_api_key}",
+                "Content-Type": "application/json",
+                "cal-api-version": "2024-08-13"
+            }
+            
+            # Split name
+            name_parts = name.split(" ", 1)
+            firstname = name_parts[0]
+            
+            # Get available slots first
+            tomorrow = (datetime.utcnow() + timedelta(days=1)).isoformat() + "Z"
+            next_week = (datetime.utcnow() + timedelta(days=7)).isoformat() + "Z"
+            
+            slots_response = await client.get(
+                f"{cal_api_url}/slots",
+                headers=headers,
+                params={
+                    "eventTypeSlug": event_type_slug,
+                    "username": username,
+                    "startTime": tomorrow,
+                    "endTime": next_week,
+                    "timeZone": "UTC"
+                }
+            )
+            
+            if slots_response.status_code != 200:
+                logging.error(f"Cal.com slots error: {slots_response.text}")
+                return None
+            
+            slots_data = slots_response.json()
+            available_slots = slots_data.get("data", {})
+            
+            # Get first available slot
+            first_slot = None
+            for date, slots in available_slots.items():
+                if slots and len(slots) > 0:
+                    first_slot = slots[0].get("start")
+                    break
+            
+            if not first_slot:
+                logging.warning("No available Cal.com slots found")
+                return None
+            
+            # Create booking
+            booking_payload = {
+                "start": first_slot,
+                "eventTypeSlug": event_type_slug,
+                "username": username,
+                "attendee": {
+                    "name": name,
+                    "email": email,
+                    "timeZone": "UTC"
+                },
+                "metadata": {
+                    "source": "gretta-ai-website"
+                }
+            }
+            
+            response = await client.post(
+                f"{cal_api_url}/bookings",
+                headers=headers,
+                json=booking_payload
+            )
+            
+            if response.status_code >= 400:
+                logging.error(f"Cal.com booking error: {response.text}")
+                return None
+            
+            result = response.json()
+            logging.info(f"Created Cal.com booking: {result}")
+            return result.get("data", {})
+    
+    except Exception as e:
+        logging.error(f"Error creating Cal.com booking: {e}")
+        return None
+
+
 # Health check endpoint
 @api_router.get("/")
 async def root():
