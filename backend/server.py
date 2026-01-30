@@ -167,19 +167,10 @@ async def create_retell_web_call():
         if not retell:
             raise HTTPException(status_code=500, detail="Retell AI not configured")
         
-        # Create agent with Retell LLM
-        agent_response = retell.agent.create(
-            agent_name="Gretta AI Voice Assistant",
-            voice_id="11labs-Adrian",
-            language="en-US",
-            llm_websocket_url="wss://api.retellai.com/llm-websocket",
-            begin_message="Hello! I'm calling from Gretta AI. How can I help you today?",
-            general_prompt="You are a friendly AI assistant from Gretta AI, a voice automation company. Be helpful, conversational, and answer questions about AI voice agents, appointment booking, SMS automation, and call handling. Keep responses natural and concise.",
-        )
+        # Use pre-created agent from dashboard
+        agent_id = "agent_c66728951e5ce6e61b79b01af9"
         
-        agent_id = agent_response.agent_id
-        
-        # Create web call
+        # Create web call with the agent
         web_call_response = retell.call.create_web_call(
             agent_id=agent_id,
         )
