@@ -24,7 +24,7 @@ const DemoSection = () => {
               </span>
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              See the magic in action. Call Gretta live or watch a demo conversation.
+              See the magic in action. Call Gretta live and experience the future of customer service.
             </p>
           </div>
 
