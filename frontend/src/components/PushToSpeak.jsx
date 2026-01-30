@@ -276,14 +276,19 @@ const PushToSpeak = () => {
             <p className="text-xs text-slate-500 font-semibold mb-1">Conversation:</p>
             <div className="space-y-2">
               {Array.isArray(transcript) ? (
-                transcript.map((item, index) => (
-                  <p key={index} className={`text-sm ${item.role === 'agent' ? 'text-purple-700 font-medium' : 'text-slate-800'}`}>
-                    <span className="font-semibold">{item.role === 'agent' ? 'Gretta: ' : 'You: '}</span>
-                    {item.content}
-                  </p>
-                ))
+                transcript.map((item, index) => {
+                  const role = getSpeakerRole(item);
+                  const content = getTranscriptContent(item);
+                  const isAgent = role === 'agent' || role === 'assistant';
+                  return (
+                    <p key={index} className={`text-sm ${isAgent ? 'text-purple-700 font-medium' : 'text-slate-800'}`}>
+                      <span className="font-semibold">{isAgent ? 'Gretta: ' : 'You: '}</span>
+                      {content}
+                    </p>
+                  );
+                })
               ) : (
-                <p className="text-sm text-slate-800">{String(transcript)}</p>
+                <p className="text-sm text-slate-800">{getTranscriptContent(transcript)}</p>
               )}
             </div>
           </div>
