@@ -166,14 +166,14 @@ const PushToSpeak = () => {
   }, [isCallActive]);
 
   return (
-    <Card className=\"bg-white border-2 border-blue-300 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 max-w-md mx-auto\">
-      <div className=\"space-y-4\">
+    <Card className="bg-white border-2 border-blue-300 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 max-w-md mx-auto">
+      <div className="space-y-4">
         {/* Title */}
-        <div className=\"text-center\">
-          <h3 className=\"text-xl font-bold text-slate-900 mb-2\">
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-slate-900 mb-2">
             Speak with Gretta Now
           </h3>
-          <p className=\"text-sm text-slate-600\">
+          <p className="text-sm text-slate-600">
             Click below to start a real-time voice conversation
           </p>
         </div>
