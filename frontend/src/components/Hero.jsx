@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Phone, Calendar, MessageSquare, PhoneOutgoing, Sparkles } from 'lucide-react';
+import { Phone, Calendar, MessageSquare, PhoneOutgoing, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import TrialModal from './TrialModal';
 import PushToSpeak from './PushToSpeak';
 
@@ -10,94 +10,111 @@ const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-
 const Hero = () => {
   const [trialOpen, setTrialOpen] = useState(false);
 
+  const benefits = [
+    'No credit card required',
+    '7-day free trial',
+    'Cancel anytime'
+  ];
+
   return (
     <>
-      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50 to-purple-50">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <section className="hero-section relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white to-purple-50/30"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-100/40 via-purple-100/30 to-pink-100/20 rounded-full blur-3xl"></div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-20">
-          <div className="text-center max-w-5xl mx-auto">
-            <div className="flex justify-center mb-6">
-              <img 
-                src={LOGO_URL} 
-                alt="Gretta AI" 
-                className="h-40 sm:h-44 md:h-48 w-auto object-contain animate-float drop-shadow-2xl"
-              />
-            </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+            {/* Left Column - Text Content */}
+            <div className="text-center lg:text-left">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 text-blue-700 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 mr-2" />
+                AI-Powered Voice Agent
+              </Badge>
 
-            <Badge className="mb-5 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-300 text-blue-700 hover:bg-gradient-to-r hover:from-blue-200 hover:to-purple-200 shadow-sm text-xs">
-              <Sparkles className="w-3 h-3 mr-2" />
-              Powered by Advanced Voice AI
-            </Badge>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-[1.1] tracking-tight">
+                Your 24/7 AI Agent That{' '}
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Never Misses a Call
+                </span>
+              </h1>
 
-            <h1 className="hero-headline text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-5 leading-tight">
-              Meet Gretta: Your 24/7 AI Voice Agent That{' '}
-              <span className="text-gradient bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Never Misses a Call
-              </span>
-            </h1>
+              <p className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Handle inbound calls, book appointments, manage SMS — all powered by human-like AI voice that works around the clock.
+              </p>
 
-            <p className="text-base sm:text-lg text-slate-600 mb-7 max-w-3xl mx-auto leading-relaxed">
-              Handle inbound calls, book appointments instantly, manage SMS conversations, and run smart outbound campaigns — all powered by human-like AI voice.
-            </p>
-
-            <div className="flex flex-col items-center space-y-5 mb-10">
-              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-semibold px-8 py-6 text-base transition-all duration-300 hover:scale-105 shadow-lg"
-                  onClick={() => {
-                    document.querySelector('#demo').scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => setTrialOpen(true)}
                 >
-                  Watch Demo
+                  Start Free Trial
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  onClick={() => setTrialOpen(true)}
+                  variant="outline"
+                  className="w-full sm:w-auto border-2 border-slate-300 text-slate-700 hover:border-purple-400 hover:text-purple-700 font-semibold px-8 py-6 text-lg transition-all duration-300"
+                  onClick={() => {
+                    document.querySelector('#demo').scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   <Phone className="w-5 h-5 mr-2" />
-                  Start Free Trial
+                  Try Live Demo
                 </Button>
               </div>
 
-              {/* Push to Speak Component */}
-              <div className="w-full max-w-md">
-                <PushToSpeak />
+              {/* Trust indicators */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-slate-500">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    <span>{benefit}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-slate-700">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-md">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-sm font-medium">Inbound Calls</span>
+            {/* Right Column - Logo & Push to Speak */}
+            <div className="flex flex-col items-center">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-2xl scale-110"></div>
+                <img 
+                  src={LOGO_URL} 
+                  alt="Gretta AI" 
+                  className="relative h-48 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-xl"
+                />
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
-                  <Calendar className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-sm font-medium">Smart Booking</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-md">
-                  <MessageSquare className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-sm font-medium">SMS Automation</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-md">
-                  <PhoneOutgoing className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-sm font-medium">Outbound Reach</span>
+
+              {/* Push to Speak Component */}
+              <div className="w-full max-w-sm">
+                <PushToSpeak />
               </div>
             </div>
           </div>
+
+          {/* Feature Pills - Horizontal scroll on mobile */}
+          <div className="mt-16 pt-12 border-t border-slate-100">
+            <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
+              {[
+                { icon: Phone, label: 'Inbound Calls', color: 'from-blue-500 to-cyan-500' },
+                { icon: Calendar, label: 'Smart Booking', color: 'from-purple-500 to-purple-600' },
+                { icon: MessageSquare, label: 'SMS Automation', color: 'from-pink-500 to-pink-600' },
+                { icon: PhoneOutgoing, label: 'Outbound Reach', color: 'from-blue-600 to-cyan-600' }
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+                  <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                    <item.icon className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
