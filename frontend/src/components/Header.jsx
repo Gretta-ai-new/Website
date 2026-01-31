@@ -85,7 +85,7 @@ const Header = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden pb-6 space-y-4">
               <Button
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 w-full font-medium text-sm shadow-md"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 w-full font-medium text-sm shadow-md"
                 onClick={() => {
                   setBookingOpen(true);
                   setIsMobileMenuOpen(false);
