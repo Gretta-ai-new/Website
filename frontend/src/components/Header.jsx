@@ -60,14 +60,14 @@ const Header = () => {
             <div className="hidden md:flex items-center space-x-3">
               <Button 
                 variant="outline" 
-                className="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-medium text-sm h-10 px-5"
+                className="border-2 border-purple-500 text-purple-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 hover:text-white hover:border-transparent font-medium text-sm h-10 px-5"
                 onClick={handleCallNow}
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </Button>
               <Button 
-                className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white hover:opacity-90 font-medium shadow-md text-sm h-10 px-5"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 font-medium shadow-md text-sm h-10 px-5"
                 onClick={() => setTrialOpen(true)}
               >
                 Start Free Trial
