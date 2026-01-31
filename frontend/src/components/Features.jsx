@@ -32,7 +32,7 @@ const Features = () => {
       icon: Mic,
       title: 'Human-like Voice',
       description: 'Natural conversations with emotional intelligence. Custom voice cloning available.',
-      color: 'from-purple-600 to-pink-600'
+      color: 'from-purple-500 to-purple-600'
     },
     {
       icon: Zap,
