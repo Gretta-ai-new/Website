@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <>
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+      <section className="py-16 bg-gradient-to-r from-blue-500 to-purple-600">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to never miss a lead again?
@@ -21,11 +21,11 @@ const Footer = () => {
           </p>
           <Button
             size="lg"
-            className="bg-white text-purple-600 hover:bg-slate-100 font-semibold px-8 py-6 text-lg shadow-xl"
+            className="group bg-white text-purple-600 hover:bg-slate-100 font-semibold px-8 py-6 text-lg shadow-xl"
             onClick={() => setTrialOpen(true)}
           >
             Start Your Free Trial
-            <ArrowRight className="w-5 h-5 ml-2" />
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
         </div>
       </section>
