@@ -81,11 +81,11 @@ const Hero = () => {
             {/* Right Column - Logo & Push to Speak */}
             <div className="flex flex-col items-center">
               <div className="relative mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-2xl scale-110"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-2xl scale-110 animate-pulse"></div>
                 <img 
                   src={LOGO_URL} 
                   alt="Gretta AI" 
-                  className="relative h-48 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-xl"
+                  className="relative h-48 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-xl animate-float"
                 />
               </div>
 
