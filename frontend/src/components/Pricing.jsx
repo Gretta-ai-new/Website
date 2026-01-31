@@ -45,7 +45,7 @@ const Pricing = () => {
         'Custom voice cloning',
         'Advanced analytics'
       ],
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-blue-500 to-purple-600',
       popular: true,
       isCustom: false
     },
