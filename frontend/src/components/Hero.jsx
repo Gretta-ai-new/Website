@@ -96,7 +96,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Feature Pills - Horizontal scroll on mobile */}
+          {/* Feature Pills */}
           <div className="mt-16 pt-12 border-t border-slate-100">
             <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
               {[
@@ -115,9 +115,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
       </section>
 
       <TrialModal open={trialOpen} onOpenChange={setTrialOpen} />
