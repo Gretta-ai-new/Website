@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import TrialModal from './TrialModal';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_voice-agent-hub-25/artifacts/5jdvd23u_Untitled%20design%20%2814%29.png';
@@ -10,107 +10,92 @@ const Footer = () => {
 
   return (
     <>
-      <footer id="contact" className="bg-gradient-to-b from-slate-50 to-slate-100 border-t border-slate-200 pt-16 pb-8">
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Ready to never miss a lead again?
+          </h2>
+          <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+            Join hundreds of businesses using Gretta to automate their customer communications.
+          </p>
+          <Button
+            size="lg"
+            className="bg-white text-purple-600 hover:bg-slate-100 font-semibold px-8 py-6 text-lg shadow-xl"
+            onClick={() => setTrialOpen(true)}
+          >
+            Start Your Free Trial
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-300 pt-16 pb-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <img 
-                  src={LOGO_URL} 
-                  alt="Gretta AI Logo" 
-                  className="h-14 w-auto object-contain"
-                />
-              </div>
-              <p className="text-slate-600 mb-6 max-w-md leading-relaxed">
-                The AI voice agent that handles inbound calls, books appointments, manages SMS, and powers outbound campaigns — so you never miss an opportunity.
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <img 
+                src={LOGO_URL} 
+                alt="Gretta AI Logo" 
+                className="h-12 w-auto object-contain mb-4 brightness-0 invert"
+              />
+              <p className="text-sm text-slate-400 leading-relaxed">
+                AI voice agent that handles calls, books appointments & manages SMS 24/7.
               </p>
-              <Button 
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg"
-                onClick={() => setTrialOpen(true)}
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                Start Free Trial
-              </Button>
             </div>
 
+            {/* Product Links */}
             <div>
-              <h3 className="text-slate-900 font-semibold mb-4">Product</h3>
-              <ul className="space-y-3">
-                <li><a href="#features" className="text-slate-600 hover:text-purple-600 transition-colors">Features</a></li>
-                <li><a href="#pricing" className="text-slate-600 hover:text-purple-600 transition-colors">Pricing</a></li>
-                <li><a href="#demo" className="text-slate-600 hover:text-purple-600 transition-colors">Demo</a></li>
-                <li><a href="#integrations" className="text-slate-600 hover:text-purple-600 transition-colors">Integrations</a></li>
-                <li><a href="#use-cases" className="text-slate-600 hover:text-purple-600 transition-colors">Use Cases</a></li>
+              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Product</h3>
+              <ul className="space-y-2.5 text-sm">
+                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#demo" className="hover:text-white transition-colors">Demo</a></li>
+                <li><a href="#integrations" className="hover:text-white transition-colors">Integrations</a></li>
               </ul>
             </div>
 
+            {/* Company Links */}
             <div>
-              <h3 className="text-slate-900 font-semibold mb-4">Company</h3>
-              <ul className="space-y-3">
-                <li><a href="#about" className="text-slate-600 hover:text-purple-600 transition-colors">About Us</a></li>
-                <li><a href="#blog" className="text-slate-600 hover:text-purple-600 transition-colors">Blog</a></li>
-                <li><a href="#careers" className="text-slate-600 hover:text-purple-600 transition-colors">Careers</a></li>
-                <li><a href="#contact" className="text-slate-600 hover:text-purple-600 transition-colors">Contact</a></li>
-                <li><a href="#support" className="text-slate-600 hover:text-purple-600 transition-colors">Support</a></li>
+              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Company</h3>
+              <ul className="space-y-2.5 text-sm">
+                <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#blog" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#careers" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
-          </div>
 
-          <div className="border-t border-slate-300 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex items-center space-x-6 text-slate-600 text-sm">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4" />
+            {/* Contact Info */}
+            <div>
+              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Contact</h3>
+              <ul className="space-y-2.5 text-sm">
+                <li className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-slate-500" />
                   <span>hello@gretta.ai</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4" />
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-slate-500" />
                   <span>+61 1800 GRETTA</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4" />
+                </li>
+                <li className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-slate-500" />
                   <span>Sydney, Australia</span>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-6">
-                <a href="#facebook" className="text-slate-600 hover:text-purple-600 transition-colors">
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#twitter" className="text-slate-600 hover:text-purple-600 transition-colors">
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a href="#linkedin" className="text-slate-600 hover:text-purple-600 transition-colors">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="#instagram" className="text-slate-600 hover:text-purple-600 transition-colors">
-                  <Instagram className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between items-center mt-8 text-slate-500 text-sm space-y-2 md:space-y-0">
-              <p>© 2025 Gretta AI. All rights reserved.</p>
-              <div className="flex space-x-6">
-                <a href="#privacy" className="hover:text-purple-600 transition-colors">Privacy Policy</a>
-                <a href="#terms" className="hover:text-purple-600 transition-colors">Terms of Service</a>
-                <a href="#cookies" className="hover:text-purple-600 transition-colors">Cookie Policy</a>
-              </div>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <div className="text-center mt-12 py-8 border-t border-slate-200">
-            <p className="text-slate-700 text-lg mb-4 font-medium">
-              Ready to never miss a lead again?
-            </p>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 font-semibold px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-              onClick={() => setTrialOpen(true)}
-            >
-              <Phone className="w-5 h-5 mr-2" />
-              Call Gretta or Get Started
-            </Button>
+          {/* Bottom Bar */}
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+            <p>© 2025 Gretta AI. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#privacy" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#terms" className="hover:text-white transition-colors">Terms</a>
+              <a href="#cookies" className="hover:text-white transition-colors">Cookies</a>
+            </div>
           </div>
         </div>
       </footer>
