@@ -81,12 +81,19 @@ const Hero = () => {
             {/* Right Column - Logo & Push to Speak */}
             <div className="flex flex-col items-center">
               <div className="relative mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-2xl scale-110 animate-pulse"></div>
-                <img 
-                  src={LOGO_URL} 
-                  alt="Gretta AI" 
-                  className="relative h-48 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-xl animate-float"
-                />
+                {/* Gradient glow behind logo */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 rounded-full blur-3xl scale-125 animate-pulse"></div>
+                
+                {/* Logo with theme color overlay */}
+                <div className="relative">
+                  <img 
+                    src={LOGO_URL} 
+                    alt="Gretta AI" 
+                    className="relative h-48 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-xl animate-float"
+                  />
+                  {/* Theme color gradient overlay - adds blue-purple-pink tint */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/15 via-purple-600/20 to-pink-600/15 mix-blend-overlay rounded-lg pointer-events-none"></div>
+                </div>
               </div>
 
               {/* Push to Speak Component */}
