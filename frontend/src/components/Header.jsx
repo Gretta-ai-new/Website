@@ -112,14 +112,14 @@ const Header = () => {
               <div className="flex flex-col space-y-3 pt-4 border-t border-slate-200">
                 <Button 
                   variant="outline" 
-                  className="border-2 border-blue-500 text-blue-600 w-full font-medium text-sm"
+                  className="border-2 border-purple-500 text-purple-600 w-full font-medium text-sm"
                   onClick={handleCallNow}
                 >
                   <Phone className="w-4 h-4 mr-2" />
                   Call Now
                 </Button>
                 <Button 
-                  className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white w-full font-medium text-sm"
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 text-white w-full font-medium text-sm"
                   onClick={() => {
                     setTrialOpen(true);
                     setIsMobileMenuOpen(false);
