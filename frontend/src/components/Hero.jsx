@@ -18,29 +18,28 @@ const Hero = () => {
 
   return (
     <>
-      <section className="hero-section relative min-h-[90vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+      <section className="hero-section relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
         {/* Subtle gradient background */}
         <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white to-purple-50/30"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-100/40 via-purple-100/30 to-pink-100/20 rounded-full blur-3xl"></div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 lg:pt-28 pb-12 lg:pb-16">
           
-          {/* Mobile/Tablet: Logo at top, centered and prominent */}
-          <div className="lg:hidden flex flex-col items-center mb-8">
+          {/* Mobile/Tablet: Big Logo at very top */}
+          <div className="lg:hidden flex justify-center mb-6">
             <div className="relative">
-              {/* Gradient glow behind logo */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/25 via-purple-500/25 to-blue-500/25 rounded-full blur-3xl scale-150 animate-pulse"></div>
               <img 
                 src={LOGO_URL} 
                 alt="Gretta AI" 
-                className="relative h-32 sm:h-44 w-auto object-contain drop-shadow-2xl animate-float"
+                className="relative h-28 sm:h-40 w-auto object-contain drop-shadow-2xl animate-float"
               />
             </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
             {/* Left Column - Text Content */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
+            <div className="text-center lg:text-left">
               <Badge className="mb-4 lg:mb-6 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 text-blue-700 shadow-sm text-xs sm:text-sm">
                 <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 mr-1.5 sm:mr-2" />
                 AI-Powered Voice Agent
@@ -90,13 +89,16 @@ const Hero = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Mobile/Tablet: Push to Speak below CTA */}
+              <div className="lg:hidden mt-8 w-full max-w-sm mx-auto">
+                <PushToSpeak />
+              </div>
             </div>
 
-            {/* Right Column - Logo (Desktop) & Push to Speak */}
-            <div className="flex flex-col items-center order-1 lg:order-2">
-              {/* Desktop Logo - Hidden on mobile/tablet */}
-              <div className="hidden lg:block relative mb-8">
-                {/* Gradient glow behind logo */}
+            {/* Right Column - Desktop only: Logo & Push to Speak */}
+            <div className="hidden lg:flex flex-col items-center">
+              <div className="relative mb-8">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-blue-500/30 rounded-full blur-3xl scale-125 animate-pulse"></div>
                 <img 
                   src={LOGO_URL} 
@@ -104,8 +106,6 @@ const Hero = () => {
                   className="relative h-64 w-auto object-contain drop-shadow-xl animate-float"
                 />
               </div>
-
-              {/* Push to Speak Component */}
               <div className="w-full max-w-sm">
                 <PushToSpeak />
               </div>
@@ -113,17 +113,17 @@ const Hero = () => {
           </div>
 
           {/* Feature Pills */}
-          <div className="mt-12 lg:mt-16 pt-8 lg:pt-12 border-t border-slate-100">
-            <div className="flex flex-wrap justify-center gap-3 lg:gap-6">
+          <div className="mt-10 lg:mt-16 pt-8 lg:pt-12 border-t border-slate-100">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-6">
               {[
                 { icon: Phone, label: 'Inbound Calls', color: 'from-blue-500 to-cyan-500' },
                 { icon: Calendar, label: 'Smart Booking', color: 'from-purple-500 to-purple-600' },
                 { icon: MessageSquare, label: 'SMS Automation', color: 'from-purple-500 to-blue-500' },
                 { icon: PhoneOutgoing, label: 'Outbound Reach', color: 'from-blue-600 to-cyan-600' }
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-2 lg:gap-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full px-3 lg:px-5 py-2 lg:py-2.5 shadow-sm hover:shadow-md transition-all">
-                  <div className={`w-6 lg:w-8 h-6 lg:h-8 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}>
-                    <item.icon className="w-3 lg:w-4 h-3 lg:h-4 text-white" />
+                <div key={index} className="flex items-center gap-2 lg:gap-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full px-3 lg:px-5 py-1.5 lg:py-2.5 shadow-sm hover:shadow-md transition-all">
+                  <div className={`w-5 lg:w-8 h-5 lg:h-8 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                    <item.icon className="w-2.5 lg:w-4 h-2.5 lg:h-4 text-white" />
                   </div>
                   <span className="text-xs lg:text-sm font-medium text-slate-700">{item.label}</span>
                 </div>
