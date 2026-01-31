@@ -300,7 +300,7 @@ const PushToSpeak = () => {
             <Button
               onClick={startCall}
               size="lg"
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 text-white font-semibold px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
             >
               <Mic className="w-5 h-5 mr-2" />
               Push to Speak with Gretta

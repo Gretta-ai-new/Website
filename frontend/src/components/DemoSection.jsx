@@ -19,7 +19,7 @@ const DemoSection = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
               Experience Gretta{' '}
-              <span className="text-gradient bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="text-gradient bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Right Now
               </span>
             </h2>
@@ -63,7 +63,7 @@ const DemoSection = () => {
           <div className="text-center mt-12">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 font-semibold px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 font-semibold px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               onClick={() => setTrialOpen(true)}
             >
               Start Your Free Trial Today

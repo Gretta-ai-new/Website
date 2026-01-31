@@ -167,7 +167,7 @@ const BookingModal = ({ open, onOpenChange }) => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:opacity-90 shadow-lg py-6 text-base font-semibold"
+            className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 shadow-lg py-6 text-base font-semibold"
           >
             {loading ? (
               <>
