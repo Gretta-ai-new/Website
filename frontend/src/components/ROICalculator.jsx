@@ -100,7 +100,7 @@ const ROICalculator = () => {
           </Card>
 
           {/* Right Panel - Savings */}
-          <Card className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-0 shadow-2xl text-white">
+          <Card className="bg-gradient-to-br from-blue-500 to-purple-600 border-0 shadow-2xl text-white">
             <CardHeader>
               <CardTitle className="text-2xl text-white">Your potential monthly savings</CardTitle>
             </CardHeader>
@@ -138,9 +138,9 @@ const ROICalculator = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 shadow-lg">
+          <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-200 shadow-lg">
             <CardContent className="pt-6 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-lg">
                 <Zap className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Instant Pickup</h3>
