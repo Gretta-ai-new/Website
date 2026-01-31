@@ -47,7 +47,7 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
                 <Button
                   size="lg"
-                  className="group w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="group w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={() => setTrialOpen(true)}
                 >
                   Start Free Trial
@@ -57,7 +57,7 @@ const Hero = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full sm:w-auto border-2 border-slate-300 text-slate-700 hover:border-purple-400 hover:text-purple-700 font-semibold px-8 py-6 text-lg transition-all duration-300"
+                  className="w-full sm:w-auto border-2 border-purple-400 text-purple-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 hover:text-white hover:border-transparent font-semibold px-8 py-6 text-lg transition-all duration-300"
                   onClick={() => {
                     document.querySelector('#demo').scrollIntoView({ behavior: 'smooth' });
                   }}
