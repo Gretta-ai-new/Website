@@ -49,7 +49,7 @@ const Features = () => {
           <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Features</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Everything You Need to{' '}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
               Automate
             </span>
           </h2>

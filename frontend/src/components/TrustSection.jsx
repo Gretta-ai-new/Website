@@ -55,7 +55,7 @@ const TrustSection = () => {
           <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Testimonials</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
             Trusted by{' '}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
               Growing Businesses
             </span>
           </h2>
