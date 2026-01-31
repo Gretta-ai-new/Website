@@ -33,8 +33,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-20 py-3">
             <div className="flex items-center space-x-2">
               <Button
-                variant="outline"
-                className="border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white font-medium text-sm h-10 px-5"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 font-medium text-sm h-10 px-5 shadow-md"
                 onClick={() => setBookingOpen(true)}
               >
                 <Calendar className="w-4 h-4 mr-2" />
