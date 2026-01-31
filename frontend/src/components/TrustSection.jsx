@@ -40,7 +40,7 @@ const TrustSection = () => {
                 key={index}
                 className="text-center p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-purple-50/50 border border-slate-100"
               >
-                <div className="w-10 h-10 mx-auto mb-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 mx-auto mb-3 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
                 <p className="text-2xl lg:text-3xl font-bold text-slate-900">{stat.value}</p>
